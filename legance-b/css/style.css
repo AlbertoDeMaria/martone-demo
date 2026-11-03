@@ -106,7 +106,6 @@ ul, ol { list-style: none; }
 .menu a:not(.btn) { position: relative; padding-block: 4px; }
 .menu a:not(.btn)::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 1px; background: var(--accento); transform: scaleX(0); transform-origin: left; transition: transform 0.3s var(--ease); }
 .menu a:not(.btn):hover::after, .menu a[aria-current="page"]::after { transform: scaleX(1); }
-.menu__lingua { color: var(--testo-2); }
 .menu .btn { padding: 12px 20px; }
 .menu-apri { display: none; width: 44px; height: 44px; border: 1px solid var(--linea); border-radius: var(--raggio); align-items: center; justify-content: center; }
 .menu-apri svg { width: 22px; height: 22px; }

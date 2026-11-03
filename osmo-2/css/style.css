@@ -155,13 +155,11 @@ address { font-style: normal; }
 .testata__logo { grid-column: 2; width: clamp(170px, 145.714px + 6.2286vw, 230px); }
 .testata__sx { grid-row: 1; grid-column: 1; }
 .testata__dx { grid-row: 1; grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--s-16); }
-.testata__lingue { font-size: var(--fs-piccolo); line-height: var(--lh-piccolo); color: var(--testo-2); }
 .pillola-menu { display: inline-flex; align-items: center; gap: var(--s-10); height: 40px; padding: 0 var(--s-18, 18px) 0 var(--s-14); border-radius: var(--r-pill); background: var(--superficie); font-size: var(--fs-bottone); line-height: var(--lh-bottone); font-weight: var(--peso-medio); transition: background-color var(--dur-colore), color var(--dur-colore); }
 .menu-aperto .testata { color: var(--testo-inverso); --focus: var(--testo-inverso); }
 .menu-aperto .testata__logo { color: var(--testo-inverso); }
 .menu-aperto .pillola-menu { background: var(--navy-2); color: var(--testo-inverso); }
 .menu-aperto .testata .bottone--scuro { background: var(--superficie); color: var(--navy); }
-.menu-aperto .testata__lingue { visibility: hidden; }   /* nel Figma col menu aperto le lingue stanno in fondo */
 @media (max-width: 991px) {
   .testata { grid-template-columns: auto 1fr; }
   .testata__logo { grid-column: 1; grid-row: 1; }
@@ -188,7 +186,7 @@ address { font-style: normal; }
 [data-navigation-status="active"] .menu__testo { transform: translateY(0); }
 .menu__piede { position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--s-8) var(--s-24); padding: var(--s-24) var(--gutter-testata); border-top: 1px solid var(--linea-inverso); font-size: var(--fs-piccolo); line-height: var(--lh-piccolo); color: var(--testo-inverso-2); opacity: 0; transition: opacity var(--dur-base) linear; }
 [data-navigation-status="active"] .menu__piede { opacity: 1; transition-delay: 0.3s; }
-@media (max-width: 991px) { .menu__piede { flex-direction: column; } .menu__piede p:last-child { display: none; } }
+@media (max-width: 991px) { .menu__piede { flex-direction: column; } }
 
 /* ============ Hero + metodo · image-to-background-zoom ============ */
 .hero { display: flex; flex-direction: column; align-items: center; text-align: center; padding-top: var(--s-56); }
