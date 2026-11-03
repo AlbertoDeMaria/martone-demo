@@ -124,12 +124,15 @@ address { font-style: normal; }
 
 
 /* ============ Testata ============ */
-.testata { position: relative; z-index: 110; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: var(--testata-h); margin-top: 3px; padding-inline: var(--gutter-testata); }
-.testata__logo { grid-column: 2; width: clamp(170px, 145.714px + 6.2286vw, 230px); }
+/* Testata fissa col logo sempre visibile e grande (3 nov, Alberto: «loghi belli evidenti e fissi allo scroll»): 180 px a 390, 280 px a 1440 */
+.testata { position: fixed; top: 0; left: 0; right: 0; z-index: 110; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; height: var(--testata-h); padding-inline: var(--gutter-testata); background: var(--sfondo); }
+body { padding-top: var(--testata-h); }
+[id] { scroll-margin-top: var(--testata-h); }
+.testata__logo { grid-column: 2; width: clamp(180px, 142.857px + 9.5238vw, 280px); transform-origin: 0 0; }
 .testata__sx { grid-row: 1; grid-column: 1; }
 .testata__dx { grid-row: 1; grid-column: 3; justify-self: end; display: flex; align-items: center; gap: var(--s-16); }
 .pillola-menu { display: inline-flex; align-items: center; gap: var(--s-10); height: 40px; padding: 0 var(--s-18, 18px) 0 var(--s-14); border-radius: var(--r-pill); background: var(--superficie); font-size: var(--fs-bottone); line-height: var(--lh-bottone); font-weight: var(--peso-medio); transition: background-color var(--dur-colore), color var(--dur-colore); }
-.menu-aperto .testata { color: var(--testo-inverso); --focus: var(--testo-inverso); }
+.menu-aperto .testata { background: transparent; color: var(--testo-inverso); --focus: var(--testo-inverso); }
 .menu-aperto .testata__logo { color: var(--testo-inverso); }
 .menu-aperto .pillola-menu { background: var(--navy-2); color: var(--testo-inverso); }
 .menu-aperto .testata .bottone--scuro { background: var(--superficie); color: var(--navy); }
@@ -177,7 +180,7 @@ html:not(.zoom-attivo) .zoom__foto:first-child { height: 460px; margin-inline: v
 html:not(.zoom-attivo) .zoom__foto .zoom__velo { display: none; }
 html:not(.zoom-attivo) .zoom__testo { grid-area: auto; min-height: 720px; background: linear-gradient(var(--velo), var(--velo)), url("../img/cassazione.webp") 50% 78% / cover; }
 html.zoom-attivo .zoom { height: 200vh; }
-html.zoom-attivo .zoom__palco { position: sticky; top: 0; height: 100vh; min-height: 0; }
+html.zoom-attivo .zoom__palco { position: sticky; top: var(--testata-h); height: calc(100vh - var(--testata-h)); min-height: 0; }
 @media (max-width: 991px) {
   .zoom { margin-top: var(--s-32); }
   .zoom__palco { min-height: 454px; }
@@ -187,12 +190,16 @@ html.zoom-attivo .zoom__palco { position: sticky; top: 0; height: 100vh; min-hei
 
 
 /* ============ Vetrina: il logo in evidenza ============ */
-/* nella home il logo piccolo della testata compare solo quando quello grande esce dallo schermo */
-.testata__logo { transition: opacity var(--dur-base) linear, visibility var(--dur-base) linear; }
-html.logo-grande-in-vista:not(.menu-aperto) .testata__logo { opacity: 0; visibility: hidden; }   /* col menu aperto il logo resta, come nella Osmo 2 */
-.vetrina { display: flex; flex-direction: column; align-items: center; gap: var(--s-24); padding-top: clamp(48px, 33.371px + 3.7524vw, 88px); text-align: center; }
+/* Nella home il logo della testata parte grande, al posto di questo segnaposto, e scorrendo si rimpicciolisce fino alla testata.
+   Il segnaposto tiene solo lo spazio (e l'h1 per i lettori di schermo); con «riduci movimento» il logo resta nella testata e lo spazio sparisce. */
+.vetrina { display: flex; flex-direction: column; align-items: center; padding-top: clamp(32px, 18.286px + 3.5238vw, 69px); text-align: center; }
 .vetrina__logo { width: min(900px, 100%); margin: 0; }
-.vetrina__logo .logo { width: 100%; }
+.vetrina__logo .logo { width: 100%; visibility: hidden; }
+html:not(.logo-scala) .vetrina { padding-top: 0; }
+html:not(.logo-scala) .vetrina__logo .logo { display: none; }
+html.logo-scala .testata__logo { will-change: transform; }
+/* col menu aperto il logo sta nella testata, bianco, qualunque sia lo scroll */
+html.menu-aperto .testata__logo { transform: none !important; }
 
 /* ============ Testo del docx ============ */
 .testo { display: flex; flex-direction: column; gap: var(--s-48); padding-block: var(--pad-sezione); }

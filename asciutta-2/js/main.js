@@ -57,6 +57,7 @@ function initLenis() {
     history.pushState(null, '', a.hash);
   });
 }
+// la testata è fissa: si arriva sotto di lei grazie allo scroll-margin-top, che Lenis rispetta come lo scroll nativo
 function vaiA(el) {
   if (lenis) lenis.scrollTo(el, { duration: durata('--durata-ancora') });
   else el.scrollIntoView();
@@ -129,7 +130,8 @@ function initZoom() {
     const alta = desktop.matches ? 460 : 260;
     tl = gsap.timeline({
       defaults: { ease: 'none' },
-      scrollTrigger: { trigger: root, start: 'top 75%', end: 'bottom bottom', scrub: true },
+      // parte quando la foto arriva sotto la testata fissa: al caricamento è sempre incassata
+      scrollTrigger: { trigger: root, start: () => `top ${document.querySelector('[data-testata]').offsetHeight}px`, end: 'bottom bottom', scrub: true, invalidateOnRefresh: true },
     })
       .fromTo(foto, { clipPath: `inset(0px ${lato} calc(100% - ${alta}px) ${lato} round 10px)` }, { clipPath: 'inset(0px 0px 0% 0px round 0px)', duration: 0.5 }, 0)
       // all'inizio la finestra incassata mostra la facciata (come nel Figma), non il cielo: la foto sale e torna giù mentre si apre
@@ -151,9 +153,33 @@ function initZoom() {
   });
 }
 
-/* ---------- logo in evidenza: nella home il logo della testata compare quando quello grande esce dallo schermo ---------- */
+/* ---------- logo in evidenza: nella home il logo della testata parte grande e si rimpicciolisce scorrendo ---------- */
+// All'inizio il logo (fisso nella testata) è spostato e ingrandito sul segnaposto della vetrina; scorrendo torna alla sua
+// misura (280 px) mentre il segnaposto sale con la pagina, poi resta fermo. Con «riduci movimento» resta sempre nella testata.
 function initLogo() {
-  const grande = document.querySelector('[data-logo-grande]');
-  if (!grande) return;
-  new IntersectionObserver(([v]) => html.classList.toggle('logo-grande-in-vista', v.isIntersecting), { rootMargin: '-60px 0px 0px 0px' }).observe(grande);
+  const segnaposto = document.querySelector('[data-logo-grande] .logo');
+  const logo = document.querySelector('.testata__logo');
+  if (!segnaposto || !logo || !conGsap) return;
+  let tween = null;
+  const misura = () => {
+    const a = logo.getBoundingClientRect();
+    const b = segnaposto.getBoundingClientRect();
+    return { x: b.left - a.left, y: b.top + scrollY - a.top, k: b.width / a.width };
+  };
+  const costruisci = () => {
+    tween?.scrollTrigger?.kill();
+    tween?.kill();
+    tween = null;
+    gsap.set(logo, { clearProps: 'transform' });
+    html.classList.toggle('logo-scala', moto.ok());
+    if (!moto.ok()) { ScrollTrigger.refresh(); return; }
+    let m = misura();
+    tween = gsap.fromTo(logo, { x: () => m.x, y: () => m.y, scale: () => m.k }, {
+      x: 0, y: 0, scale: 1, ease: 'none',
+      scrollTrigger: { start: 0, end: () => m.y, scrub: true, invalidateOnRefresh: true, onRefreshInit: () => { gsap.set(logo, { clearProps: 'transform' }); m = misura(); } },
+    });
+    ScrollTrigger.refresh();
+  };
+  costruisci();
+  moto.ascolta.push(costruisci);
 }
