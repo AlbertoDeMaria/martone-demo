@@ -433,3 +433,8 @@ html.bloccato { overflow: hidden; }
   .filtri__pillole { gap: 6px; flex-wrap: nowrap; }
   .pill { padding: 10px 14px; font-size: 14px; }
 }
+
+/* ============ Pagina contatti (non nel Figma: ricavata dalla D nello stile della B) ============ */
+.intro__lead { max-width: 640px; }
+.arrivare__foto { width: 100%; height: clamp(240px, 160px + 20vw, 560px); object-fit: cover; border-radius: var(--raggio-card); margin-top: 56px; }
+@media (max-width: 767px) { .arrivare__foto { margin-top: 32px; } }
