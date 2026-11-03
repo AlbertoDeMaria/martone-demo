@@ -25,8 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initTwostepNav();
   initBottomNav();
-  initLoopingWords();
-  initNumberOdometer();
   initHighlightText();
   initBouncyTabs();
   initFeaturePills();
@@ -227,106 +225,6 @@ function initBottomNav() {
       if (isOpen) gsap.set(inner, { width: dims.openW, height: dims.openH });
       else { tl.invalidate(); gsap.set(inner, { width: dims.closedW, height: dims.closedH }); }
     }, 150);
-  });
-}
-
-/* ---------- looping-words-with-selector ---------- */
-function initLoopingWords() {
-  const list = document.querySelector('[data-looping-words-list]');
-  const sel = document.querySelector('[data-looping-words-selector]');
-  if (!list || !sel || !conGsap) return;
-  const words = Array.from(list.children);
-  words.forEach((w) => {
-    const span = document.createElement('span');
-    span.textContent = w.textContent;
-    w.replaceChildren(span);
-  });
-  const total = words.length;
-  const passo = 100 / total;
-  let indice = 0;
-
-  function aggiornaMirino(istante) {
-    const centro = words[(indice + 1) % total];
-    words.forEach((w) => w.classList.toggle('is--attiva', w === centro));
-    const px = parseFloat(getComputedStyle(list.parentElement.parentElement).getPropertyValue('--mirino-px')) || 0;
-    gsap.to(sel, { width: centro.firstElementChild.offsetWidth + 2 * px, duration: istante ? 0 : 0.5, ease: 'expo.out' });
-  }
-
-  function muovi() {
-    indice++;
-    gsap.to(list, {
-      yPercent: -passo * indice,
-      duration: 1,
-      ease: 'power3.inOut',
-      onStart: () => aggiornaMirino(false),
-      onComplete() {
-        if (indice >= total - 3) {
-          list.appendChild(list.children[0]);
-          indice--;
-          gsap.set(list, { yPercent: -passo * indice });
-          words.push(words.shift());
-        }
-      },
-    });
-  }
-
-  list.classList.add('is--pronta');
-  aggiornaMirino(true);
-  const ciclo = gsap.timeline({ repeat: -1, delay: 1, paused: !moto.ok() }).call(muovi).to({}, { duration: 2.6 });
-  moto.ascolta.push((ok) => (ok ? ciclo.play() : ciclo.pause()));
-  window.addEventListener('resize', () => aggiornaMirino(true));
-  if (document.fonts) document.fonts.ready.then(() => aggiornaMirino(true));
-}
-
-/* ---------- number-odometer ---------- */
-function initNumberOdometer() {
-  if (!conGsap || riduci.matches) return;
-  const d = { duration: 1, ease: 'power3.out', elementStagger: 0.1, digitStagger: 0.04, triggerStart: 'top 90%', digitCycles: 2 };
-  const passoRiga = (el) => {
-    const cs = getComputedStyle(el);
-    return cs.lineHeight === 'normal' ? 1.2 : parseFloat(cs.lineHeight) / parseFloat(cs.fontSize);
-  };
-
-  document.querySelectorAll('[data-odometer-group]').forEach((group) => {
-    const elements = Array.from(group.querySelectorAll('[data-odometer-element]'));
-    const data = elements.map((el) => {
-      const testo = el.textContent.trim();
-      const step = passoRiga(el);
-      el.replaceChildren();
-      const rollers = [];
-      [...testo].forEach((ch) => {
-        if (!/\d/.test(ch)) {
-          const s = document.createElement('span');
-          s.setAttribute('data-odometer-part', 'static');
-          s.textContent = ch;
-          el.appendChild(s);
-          return;
-        }
-        const mask = document.createElement('span');
-        mask.setAttribute('data-odometer-part', 'mask');
-        mask.style.height = step + 'em';
-        mask.style.lineHeight = step;
-        const roller = document.createElement('span');
-        roller.setAttribute('data-odometer-part', 'roller');
-        roller.style.lineHeight = step;
-        roller.textContent = Array.from({ length: 10 * d.digitCycles }, (_, i) => i % 10).join('\n');
-        mask.appendChild(roller);
-        el.appendChild(mask);
-        const fine = parseInt(ch, 10);
-        rollers.push({ roller, target: fine > 0 ? fine : 10 });
-      });
-      return { el, testo, step, rollers };
-    });
-
-    const tl = gsap.timeline({
-      scrollTrigger: { trigger: group, start: d.triggerStart, once: true },
-      onComplete() { data.forEach(({ el, testo }) => { el.textContent = testo; }); },
-    });
-    data.forEach(({ rollers, step }, i) => {
-      rollers.forEach(({ roller, target }, j) => {
-        tl.to(roller, { y: -target * step + 'em', duration: d.duration, ease: d.ease, force3D: true }, i * d.elementStagger + (rollers.length - 1 - j) * d.digitStagger);
-      });
-    });
   });
 }
 

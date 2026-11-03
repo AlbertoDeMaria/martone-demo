@@ -66,7 +66,6 @@
   --fs-link: clamp(15px, 14.257px + 0.1905vw, 17px);
   --lh-link: clamp(21px, 19.886px + 0.2857vw, 24px);
   --fs-label: 13px;
-  --fs-chip: clamp(13px, 12.257px + 0.1905vw, 15px);
   --fs-mono: 13px;          /* nel Figma 10-11 px: alzato al minimo di 13 px del brief */
   --fs-13: 13px;
   --fs-14: 14px;
@@ -330,7 +329,6 @@ html:not(.gsap) [data-bottom-nav-open="true"] .bottomnav__pannello { opacity: 1;
 /* ============ Hero ============ */
 .hero { display: flex; flex-direction: column; gap: var(--s-18); padding-top: var(--s-56); padding-bottom: var(--pad-hero-b); }
 .hero__testo { display: flex; flex-direction: column; gap: var(--s-18); }
-.hero__top { display: flex; flex-direction: column; gap: var(--s-18); }
 .hero__lead { max-width: 560px; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--testo-2); }
 .hero__azioni { display: flex; align-items: center; gap: var(--s-24); }
 /* la foto entra a tendina dall'alto, con la curva PHOTO della E (il keyframe «to» va scritto, se no scatta a metà) */
@@ -338,38 +336,12 @@ html:not(.gsap) [data-bottom-nav-open="true"] .bottomnav__pannello { opacity: 1;
 @keyframes tendina { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
 .hero__foto { width: 100%; height: 380px; margin-top: calc(var(--s-6) + var(--s-18)); border-radius: var(--r-s); }
 
-/* looping-words-with-selector */
-.parole { --passo: 25px; --riga: 20px; --mirino-px: 6px; --mirino-py: 2px; --angolo: 9px; display: flex; align-items: center; gap: var(--s-10); font-size: var(--fs-lead); }
-.parole__intro { flex: none; white-space: nowrap; color: var(--testo); }
-.parole__finestra { position: relative; height: calc(2 * var(--passo) + var(--riga)); padding-right: calc(2 * var(--mirino-px)); clip-path: inset(0 -24px 0 -4px); }
-.parole__lista { position: relative; font-weight: var(--peso-medio); white-space: nowrap; }
-.parole__lista li { height: var(--passo); line-height: var(--riga); opacity: 0.25; transition: opacity var(--dur-base) var(--ease-expo), transform var(--dur-base) var(--ease-expo); }
-.parole__lista li:nth-child(2), .parole__lista li.is--attiva { opacity: 1; transform: translateX(var(--mirino-px)); }
-.parole__lista.is--pronta li:not(.is--attiva) { opacity: 0.25; transform: none; }
-.parole__mirino { position: absolute; left: 0; top: calc(var(--passo) - var(--mirino-py)); height: calc(var(--riga) + 2 * var(--mirino-py)); width: 0; pointer-events: none; }
-.parole__lista:not(.is--pronta) + .parole__mirino { display: none; }
-.mirino__angolo { --fuori: -1.8px; position: absolute; top: var(--fuori); left: var(--fuori); width: var(--angolo); height: var(--angolo); border-top: 1.6px solid var(--accento); border-left: 1.6px solid var(--accento); }
-.mirino__angolo.is--2 { left: auto; right: var(--fuori); transform: rotate(90deg); }
-.mirino__angolo.is--3 { top: auto; left: auto; right: var(--fuori); bottom: var(--fuori); transform: rotate(180deg); }
-.mirino__angolo.is--4 { top: auto; bottom: var(--fuori); transform: rotate(270deg); }
-
-/* countdown (forma quadrato · pillola · quadrato) + number-odometer */
-.numeri { display: flex; gap: var(--s-4); }
-.numeri li { padding: var(--s-7) var(--s-12); border-radius: var(--r-xs); background: var(--superficie); font-size: var(--fs-13); font-weight: var(--peso-medio); white-space: nowrap; }
-.numeri li.is--pillola { border-radius: var(--r-pill); }
-.numeri li.is--accento { background: var(--accento); color: var(--inverso); }
-[data-odometer-element] { display: inline-flex; font-variant-numeric: tabular-nums; vertical-align: top; }
-[data-odometer-part="mask"], [data-odometer-part="static"] { display: inline-block; overflow: clip; padding: 0.05em; margin: -0.05em; }
-[data-odometer-part="roller"] { display: block; white-space: pre; text-align: center; will-change: transform; }
-
 @media (min-width: 992px) {
   .hero { display: grid; grid-template-columns: minmax(0, 676fr) minmax(0, 620fr); gap: var(--s-64); align-items: start; }
-  .hero__testo { align-self: stretch; justify-content: space-between; gap: var(--s-40); padding-top: var(--s-40); }
-  .hero__top { gap: var(--s-24); }
+  /* senza parole che scorrono e numeri (3 nov) il testo sta al centro della foto, non in alto con il vuoto sotto */
+  .hero__testo { align-self: center; gap: var(--s-24); }
   .hero__azioni { padding-top: var(--s-8); }
   .hero__foto { height: auto; aspect-ratio: 620 / 640; margin-top: 0; }
-  .numeri li { padding: var(--s-8) var(--s-14); font-size: var(--fs-15); }
-  .parole { --passo: 29px; --riga: 22px; --mirino-px: 8px; --mirino-py: 3px; --angolo: 10px; gap: var(--s-14); padding-block: calc((96px - 2 * var(--passo) - var(--riga)) / 2); }
 }
 
 /* ============ Il metodo · highlight-text-on-scroll ============ */
