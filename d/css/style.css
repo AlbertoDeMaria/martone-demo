@@ -327,20 +327,21 @@ html:not(.gsap) [data-bottom-nav-open="true"] .bottomnav__pannello { opacity: 1;
 @media (max-width: 991px) { .twostep, .testata { display: none; } }
 
 /* ============ Hero ============ */
-.hero { display: flex; flex-direction: column; gap: var(--s-18); padding-top: var(--s-56); padding-bottom: var(--pad-hero-b); }
-.hero__testo { display: flex; flex-direction: column; gap: var(--s-18); }
-.hero__lead { max-width: 560px; font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--testo-2); }
-.hero__azioni { display: flex; align-items: center; gap: var(--s-24); padding-top: var(--s-10); }   /* blocco compatto: 18 fra titolo e testo, 28 prima dei bottoni */
+/* blocco compatto (3 nov, Alberto: «centriamo il contenuto»): etichetta 12, titolo 16, testo 24, bottoni */
+.hero { display: flex; flex-direction: column; gap: var(--s-32); padding-top: var(--s-56); padding-bottom: var(--pad-hero-b); }
+.hero__testo { display: flex; flex-direction: column; }
+.hero h1 { margin-top: var(--s-12); }
+.hero__lead { max-width: 560px; margin-top: var(--s-16); font-size: var(--fs-lead); line-height: var(--lh-lead); color: var(--testo-2); }
+.hero__azioni { display: flex; align-items: center; gap: var(--s-24); margin-top: var(--s-24); }
 /* la foto entra a tendina dall'alto, con la curva PHOTO della E (il keyframe «to» va scritto, se no scatta a metà) */
 @media (prefers-reduced-motion: no-preference) { .hero__foto { animation: tendina var(--dur-foto) var(--ease-foto) both; } }
 @keyframes tendina { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0); } }
-.hero__foto { width: 100%; height: 380px; margin-top: calc(var(--s-6) + var(--s-18)); border-radius: var(--r-s); }
+.hero__foto { width: 100%; height: 380px; border-radius: var(--r-s); }
 
 @media (min-width: 992px) {
-  .hero { display: grid; grid-template-columns: minmax(0, 676fr) minmax(0, 620fr); gap: var(--s-64); align-items: start; }
-  /* senza parole che scorrono e numeri (3 nov) il testo è un blocco compatto al centro della foto */
-  .hero__testo { align-self: center; }
-  .hero__foto { height: auto; aspect-ratio: 620 / 640; margin-top: 0; }
+  /* testo e foto in un contenitore centrato di 1200 px (l'header resta a tutta larghezza), centrati anche in verticale */
+  .hero { --page-max: calc(1200px + 2 * var(--gutter)); display: grid; grid-template-columns: minmax(0, 576fr) minmax(0, 560fr); align-items: center; gap: var(--s-64); padding-block: var(--s-64); }
+  .hero__foto { height: auto; aspect-ratio: 620 / 640; }
 }
 
 /* ============ Il metodo · highlight-text-on-scroll ============ */
