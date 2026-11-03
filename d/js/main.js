@@ -28,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initHighlightText();
   initBouncyTabs();
   initFeaturePills();
-  initTabSystem();
   initMarquee();
   initCopyEmail();
   initCurrentTime();
@@ -494,92 +493,6 @@ function initFeaturePills() {
   });
 }
 
-/* ---------- tab-system-with-autoplay-option ---------- */
-function initTabSystem() {
-  if (!conGsap) return;
-  document.querySelectorAll('[data-tabs="wrapper"]').forEach((wrapper) => {
-    const contentItems = wrapper.querySelectorAll('[data-tabs="content-item"]');
-    const visualItems = wrapper.querySelectorAll('[data-tabs="visual-item"]');
-    const badge = wrapper.querySelector('[data-tabs-badge-testo]');
-    const durata = parseInt(wrapper.dataset.tabsAutoplayDuration, 10) || 5000;
-    let autoplay = wrapper.dataset.tabsAutoplay === 'true';
-    let activeContent = null;
-    let activeVisual = null;
-    let isAnimating = false;
-    let barra = null;
-    let inVista = false;
-    let sopra = false;
-
-    const puoAvanzare = () => autoplay && inVista && !sopra && moto.ok();
-    function aggiornaBarra() {
-      if (!barra) return;
-      if (puoAvanzare()) barra.resume(); else barra.pause();
-    }
-
-    function startProgressBar(index) {
-      if (barra) barra.kill();
-      const bar = contentItems[index].querySelector('[data-tabs="item-progress"]');
-      gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' });
-      if (!autoplay) return;
-      barra = gsap.to(bar, {
-        scaleX: 1,
-        duration: durata / 1000,
-        ease: 'power1.inOut',
-        paused: !puoAvanzare(),
-        onComplete: () => { if (!isAnimating) switchTab((index + 1) % contentItems.length); },
-      });
-    }
-
-    function switchTab(index) {
-      if (isAnimating || contentItems[index] === activeContent) return;
-      isAnimating = true;
-      if (barra) barra.kill();
-      const outC = activeContent;
-      const outV = activeVisual;
-      const inC = contentItems[index];
-      const inV = visualItems[index];
-      outC?.classList.remove('active');
-      outV?.classList.remove('active');
-      outC?.setAttribute('aria-expanded', 'false');
-      inC.classList.add('active');
-      inV.classList.add('active');
-      inC.setAttribute('aria-expanded', 'true');
-      if (badge) badge.textContent = inC.dataset.nome;
-      const tl = gsap.timeline({
-        defaults: { duration: riduci.matches ? 0 : 0.65, ease: 'power3' },
-        onComplete: () => { activeContent = inC; activeVisual = inV; isAnimating = false; startProgressBar(index); },
-      });
-      if (outC) {
-        const outBar = outC.querySelector('[data-tabs="item-progress"]');
-        tl.set(outBar, { transformOrigin: 'right center' })
-          .to(outBar, { scaleX: 0, duration: riduci.matches ? 0 : 0.3 }, 0)
-          .to(outV, { autoAlpha: 0, xPercent: 3 }, 0)
-          .to(outC.querySelector('[data-tabs="item-details"]'), { height: 0 }, 0);
-      }
-      tl.fromTo(inV, { autoAlpha: 0, xPercent: 3 }, { autoAlpha: 1, xPercent: 0 }, outC ? 0.3 : 0)
-        .fromTo(inC.querySelector('[data-tabs="item-details"]'), { height: 0 }, { height: 'auto' }, 0)
-        .set(inC.querySelector('[data-tabs="item-progress"]'), { scaleX: 0, transformOrigin: 'left center' }, 0);
-    }
-
-    visualItems.forEach((v, i) => gsap.set(v, { autoAlpha: i === 0 ? 1 : 0 }));
-    contentItems.forEach((item, i) => {
-      item.setAttribute('aria-expanded', 'false');
-      item.addEventListener('click', () => {
-        autoplay = false; // dopo una scelta dell'utente l'autoplay si ferma
-        if (barra) barra.kill();
-        switchTab(i);
-      });
-    });
-    wrapper.addEventListener('pointerenter', () => { sopra = true; aggiornaBarra(); });
-    wrapper.addEventListener('pointerleave', () => { sopra = false; aggiornaBarra(); });
-    wrapper.addEventListener('focusin', () => { sopra = true; aggiornaBarra(); });
-    wrapper.addEventListener('focusout', () => { sopra = false; aggiornaBarra(); });
-    new IntersectionObserver(([e]) => { inVista = e.isIntersecting; aggiornaBarra(); }, { threshold: 0.3 }).observe(wrapper);
-    moto.ascolta.push(aggiornaBarra);
-    switchTab(0);
-  });
-}
-
 /* ---------- css-marquee ---------- */
 function initMarquee() {
   const pxAlSecondo = 40;
@@ -647,6 +560,7 @@ function initFormValidation() {
     function valido(g) {
       const input = campo(g);
       const v = input.value.trim();
+      if (input.type === 'checkbox') return input.checked;
       if (input.type === 'email') return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
       const min = parseInt(input.getAttribute('min'), 10) || 1;
       return v.length >= min;
@@ -668,7 +582,7 @@ function initFormValidation() {
         if (input.__avviata) aggiorna(g);
         esito.classList.remove('is--visibile');
       });
-      input.addEventListener('blur', () => { if (input.value.trim()) input.__avviata = true; aggiorna(g); });
+      input.addEventListener('blur', () => { if (input.type !== 'checkbox' && input.value.trim()) input.__avviata = true; aggiorna(g); });
     });
 
     form.addEventListener('submit', (e) => {
@@ -843,7 +757,7 @@ function initPreviewFollower() {
       item.addEventListener('mouseleave', () => togli(-offset));
       item.addEventListener('pointerdown', (e) => {
         if (e.pointerType !== 'touch') return;
-        const riga = item.querySelector('.persona');
+        const riga = item.querySelector('.persona') || item;
         gsap.set(follower, { x: e.clientX, y: e.clientY });
         mostra(item, index);
         riga.classList.add('is--tocco');
