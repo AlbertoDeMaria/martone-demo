@@ -264,7 +264,7 @@ html:not(.js) .valore { position: static; flex: none; transform: none; }
 .aree__img + .aree__img { clip-path: inset(50% round var(--r-m)); }
 .aree__testi { display: flex; flex-direction: column; gap: var(--s-40); }
 .aree__lista { border-top: 1px solid var(--linea); }
-.area { display: grid; gap: var(--s-14); padding-block: var(--s-32); border-bottom: 1px solid var(--linea); cursor: pointer; }
+.area { display: grid; gap: var(--s-14); padding-block: clamp(20px, 2.222vw, 32px); border-bottom: 1px solid var(--linea); cursor: pointer; }
 .area__n { font-size: var(--fs-etichetta); line-height: var(--lh-etichetta); font-weight: var(--peso-medio); }
 .area .t-h3 { color: var(--testo-2); transition: color var(--dur-colore); }
 .area.is-attivo .t-h3 { color: var(--testo); }

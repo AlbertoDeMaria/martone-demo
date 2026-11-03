@@ -145,6 +145,7 @@ function initZoom() {
   const root = document.querySelector('[data-bg-zoom]');
   if (!root || !conGsap) return;
   const foto = root.querySelector('[data-bg-zoom-foto]');
+  const img = foto.querySelector('img');
   const velo = root.querySelector('[data-bg-zoom-velo]');
   const testo = root.querySelector('[data-bg-zoom-testo]');
   let tl = null;
@@ -152,7 +153,7 @@ function initZoom() {
     tl?.scrollTrigger?.kill();
     tl?.kill();
     tl = null;
-    gsap.set([foto, velo, testo], { clearProps: 'all' });
+    gsap.set([foto, img, velo, testo], { clearProps: 'all' });
     html.classList.toggle('zoom-attivo', moto.ok());
     if (!moto.ok()) { ScrollTrigger.refresh(); return; }
     const lato = getComputedStyle(root).getPropertyValue('--incasso').trim();
@@ -162,6 +163,8 @@ function initZoom() {
       scrollTrigger: { trigger: root, start: 'top 75%', end: 'bottom bottom', scrub: true },
     })
       .fromTo(foto, { clipPath: `inset(0px ${lato} calc(100% - ${alta}px) ${lato} round 10px)` }, { clipPath: 'inset(0px 0px 0% 0px round 0px)', duration: 0.5 }, 0)
+      // all'inizio la finestra incassata mostra la facciata (come nel Figma), non il cielo: la foto sale e torna giù mentre si apre
+      .fromTo(img, { yPercent: -37 }, { yPercent: 0, duration: 0.5 }, 0)
       .fromTo(velo, { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.38)
       .fromTo(testo, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.22 }, 0.48)
       .to({}, { duration: 0.3 });
@@ -250,6 +253,8 @@ function initAree() {
   });
   if (!conGsap) return;
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference) and (min-width: 992px)', () => {
+    // la sezione si blocca solo se entra nello schermo (con 1366×768 sì; su schermi più bassi si scorre e si clicca)
+    if (w.offsetHeight > innerHeight - 32) return undefined;
     const passi = items.length - 1;
     const st = ScrollTrigger.create({
       trigger: w,
