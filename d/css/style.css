@@ -426,48 +426,7 @@ html:not(.js) .pillola[data-active="true"] .pillola__btn, html:not(.js) .pillola
   .pillola__testo { font-size: var(--fs-14); line-height: 22px; }
 }
 
-/* ============ Attività: 4 proposte da scegliere (3 nov 2026), una sotto l'altra ============ */
-/* barra che dice solo quale proposta è: neutra, si toglie quando Alberto sceglie */
-.proposta { background: var(--linea); }
-.proposta p { padding-block: var(--s-8); font-family: var(--font-mono); font-size: var(--fs-mono); color: var(--testo); }
-
-/* Proposta 1 · elenco numerato che si apre (details nativi con name: uno aperto alla volta, tastiera e lettori di schermo dal browser) */
-.acc { background: var(--superficie); }
-.acc__wrap { display: flex; flex-direction: column; gap: var(--s-32); padding-block: var(--pad-block); }
-.acc__lista { border-bottom: var(--s-1) solid var(--linea); }
-.acc__voce { border-top: var(--s-1) solid var(--linea); interpolate-size: allow-keywords; }
-.acc__voce summary { display: grid; grid-template-columns: var(--s-40) minmax(0, 1fr) auto; align-items: center; gap: var(--s-12); padding-block: var(--s-20); cursor: pointer; list-style: none; }
-.acc__voce summary::-webkit-details-marker { display: none; }
-.acc__titolo { font-size: var(--fs-area); line-height: var(--lh-area); letter-spacing: var(--ls-area); font-weight: var(--peso-medio); color: var(--testo-2); transition: color var(--dur-colore); }
-.acc__voce[open] .acc__titolo, .acc__voce summary:hover .acc__titolo { color: var(--testo); }
-.acc__icona { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; border-radius: var(--r-pill); background: var(--sfondo); transition: transform var(--dur-base) var(--ease-osmo), background-color var(--dur-colore); }
-.acc__voce[open] .acc__icona { transform: rotate(45deg); background: var(--accento); }
-.acc__voce::details-content { block-size: 0; overflow: clip; transition: block-size var(--dur-base) var(--ease-osmo), content-visibility var(--dur-base) allow-discrete; }
-.acc__voce[open]::details-content { block-size: auto; }
-.acc__corpo { display: grid; gap: var(--s-16); padding: 0 0 var(--s-24) calc(var(--s-40) + var(--s-12)); }
-.acc__p { max-width: 560px; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--testo-2); }
-.acc__foto { width: 100%; height: 180px; border-radius: var(--r-xs); }
-@media (min-width: 992px) {
-  .acc__voce summary { grid-template-columns: var(--s-64) minmax(0, 1fr) auto; padding-block: var(--s-24); }
-  .acc__corpo { grid-template-columns: minmax(0, 1fr) 240px; gap: var(--s-48); padding-left: calc(var(--s-64) + var(--s-12)); padding-right: calc(28px + var(--s-12)); }
-  .acc__p { font-size: var(--fs-lead); line-height: var(--lh-lead); }
-  .acc__foto { height: 160px; }
-}
-
-/* Proposta 2 · griglia compatta: introduzione + 5 schede sempre leggibili */
-.griglia__wrap { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-12); padding-block: var(--pad-block); }
-.griglia__intro { display: flex; flex-direction: column; gap: var(--s-14); padding-bottom: var(--s-20); }
-.scheda { display: flex; flex-direction: column; gap: var(--s-32); padding: var(--s-20); border-radius: var(--r-m); background: var(--superficie); }
-.scheda__testi { display: flex; flex-direction: column; gap: var(--s-10); }
-.scheda__p { font-size: var(--fs-body); line-height: var(--lh-body); color: var(--testo-2); }
-@media (min-width: 640px) { .griglia__wrap { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-@media (min-width: 992px) {
-  .griglia__wrap { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s-16); }
-  .griglia__intro { justify-content: flex-end; padding: 0 var(--s-24) var(--s-24) 0; }
-  .scheda { min-height: 260px; padding: var(--s-28); }
-}
-
-/* Proposta 3 · titolo fisso a sinistra, servizi che scorrono a destra */
+/* ============ Attività · titolo fisso a sinistra, servizi che scorrono a destra ============ */
 .fisso { background: var(--superficie); }
 .fisso__wrap { display: flex; flex-direction: column; gap: var(--s-32); padding-block: var(--pad-block); }
 .fisso__testa { display: flex; flex-direction: column; gap: var(--s-14); }
@@ -482,21 +441,6 @@ html:not(.js) .pillola[data-active="true"] .pillola__btn, html:not(.js) .pillola
   .fisso__foto { height: auto; aspect-ratio: 4 / 3; margin-top: var(--s-10); }
   .fisso__lista li { grid-template-columns: var(--s-64) minmax(0, 1fr); gap: var(--s-14) var(--s-12); padding-block: var(--s-40); }
   .fisso__p { font-size: var(--fs-lead); line-height: var(--lh-lead); }
-}
-
-/* Proposta 4 · indice a righe grandi: foto che segue il cursore, righe vicine attenuate */
-.indice__wrap { display: flex; flex-direction: column; gap: var(--s-32); padding-block: var(--pad-block); }
-.indice__lista { margin: 0; border-bottom: var(--s-1) solid var(--linea); }
-.indice__riga { display: grid; grid-template-columns: var(--s-40) minmax(0, 1fr); gap: var(--s-8) var(--s-12); padding-block: var(--s-20); border-top: var(--s-1) solid var(--linea); transition: opacity var(--dur-colore); }
-.indice__titolo { font-size: var(--fs-statement); line-height: var(--lh-statement); letter-spacing: var(--ls-statement); }
-.indice__p { grid-column: 2; font-size: var(--fs-body); line-height: var(--lh-body); color: var(--testo-2); }
-.indice__visual { display: none; }
-@media (hover: hover) and (pointer: fine) {
-  .indice__lista:has(.indice__riga:hover) .indice__riga:not(:hover) { opacity: 0.35; }
-}
-@media (min-width: 992px) {
-  .indice__riga { grid-template-columns: var(--s-64) minmax(0, 1fr) minmax(0, 400px); align-items: baseline; gap: var(--s-24); padding-block: var(--s-28); }
-  .indice__p { grid-column: auto; }
 }
 
 /* ============ Materie · css-marquee ============ */
@@ -678,9 +622,9 @@ html:not(.js) .pillola[data-active="true"] .pillola__btn, html:not(.js) .pillola
 .anteprima { position: fixed; top: 0; left: 0; z-index: 50; width: 96px; height: 120px; pointer-events: none; }
 .anteprima__inner { position: relative; width: 100%; height: 100%; overflow: hidden; border-radius: var(--r-xs); transform: scale(0); transition: transform var(--dur-base) var(--ease-osmo); }
 .anteprima [data-follower-visual] { display: block; position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-[data-follower-wrap].is--tocco .anteprima__inner { transform: scale(1); }
+.team.is--tocco .anteprima__inner { transform: scale(1); }
 @media (hover: hover) and (pointer: fine) {
-  [data-follower-wrap]:has([data-follower-collection]:hover) .anteprima__inner { transform: scale(1); }
+  .team:has(.team__lista:hover) .anteprima__inner { transform: scale(1); }
 }
 @media (min-width: 992px) {
   .team { gap: 0; }
@@ -692,7 +636,6 @@ html:not(.js) .pillola[data-active="true"] .pillola__btn, html:not(.js) .pillola
   .persona__ruolo { font-size: var(--fs-14); }
   .persona__freccia { --i: 14px; justify-self: end; }
   .anteprima { width: 150px; height: 190px; }
-  .anteprima--servizi { width: 280px; height: 180px; }
 }
 
 /* Contatti (soci) */

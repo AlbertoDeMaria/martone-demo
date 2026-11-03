@@ -757,7 +757,7 @@ function initPreviewFollower() {
       item.addEventListener('mouseleave', () => togli(-offset));
       item.addEventListener('pointerdown', (e) => {
         if (e.pointerType !== 'touch') return;
-        const riga = item.querySelector('.persona') || item;
+        const riga = item.querySelector('.persona');
         gsap.set(follower, { x: e.clientX, y: e.clientY });
         mostra(item, index);
         riga.classList.add('is--tocco');
