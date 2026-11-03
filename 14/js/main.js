@@ -19,8 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initLenis();
   initNav();
   initFlipFoto();
-  initEvidenziatore();
-  initPila();
+  initTestoColore();
+  initValori();
   initOrizzontale();
   initServizi();
   initListaGriglia();
@@ -164,75 +164,39 @@ function initFlipFoto() {
   });
 }
 
-/* ---------- highlight-marker-text-reveal: barre azzurre che si ritirano riga per riga ---------- */
-function initEvidenziatore() {
+/* ---------- highlight-text-on-scroll: le parole del metodo passano da grigio a blu scorrendo ---------- */
+// Come nella F, per parole (lo split in lettere cambia gli a capo); al posto dell'opacità si anima il colore,
+// da --colore-testo-spento, così il grigio di partenza resta leggibile. Con «riduci movimento» il testo è già blu.
+function initTestoColore() {
   if (!conGsap) return;
   gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const pulizie = [];
-    const colore = getComputedStyle(document.documentElement).getPropertyValue('--colore-accento').trim();
-    document.querySelectorAll('[data-highlight-marker-reveal]').forEach((el) => {
-      let tl, st;
-      const split = SplitText.create(el, {
-        type: 'lines',
-        linesClass: 'highlight-marker-line',
-        autoSplit: true,
-        onSplit(self) {
-          tl?.kill();
-          st?.kill();
-          tl = gsap.timeline({ paused: true });
-          self.lines.forEach((riga, i) => {
-            riga.style.position = 'relative';
-            const barra = document.createElement('span');
-            barra.className = 'highlight-marker-bar';
-            barra.style.backgroundColor = colore;
-            barra.style.transformOrigin = 'right center';
-            riga.appendChild(barra);
-            tl.to(barra, { scaleX: 0, duration: 0.6, ease: 'power3.inOut' }, i * 0.1);
-          });
-          gsap.set(el, { autoAlpha: 1 });
-          st = ScrollTrigger.create({ trigger: el, start: 'top 75%', once: true, onEnter: () => tl.play() });
-        },
-      });
-      pulizie.push(() => { tl?.kill(); st?.kill(); split.revert(); gsap.set(el, { clearProps: 'visibility,opacity' }); });
-    });
-    return () => pulizie.forEach((fn) => fn());
+    const spento = getComputedStyle(document.documentElement).getPropertyValue('--colore-testo-spento').trim();
+    const split = [...document.querySelectorAll('[data-highlight-text]')].map((el) => SplitText.create(el, {
+      type: 'words',
+      autoSplit: true,
+      onSplit: (self) => gsap.timeline({ scrollTrigger: { trigger: el, scrub: true, start: 'top 85%', end: 'bottom 45%' } })
+        .from(self.words, { color: spento, stagger: 0.1, ease: 'none' }),
+    }));
+    return () => split.forEach((sp) => sp.revert());
   });
 }
 
-/* ---------- stacking-cards-parallax: ogni valore sale e copre il precedente, che si stringe ---------- */
-// Adattato: la pila si blocca (pin) sotto il menu e le card salgono una alla volta fino al loro posto,
-// lasciando visibile la testata di quelle sotto. Al posto di yPercent e rotate dell'originale le card sotto
-// rientrano di --pila-rientro per lato a ogni card che arriva (niente rotazioni). Senza movimento: card in colonna.
-function initPila() {
-  const pila = document.querySelector('[data-stacking-cards]');
-  if (!conGsap || !pila) return;
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    const cards = [...pila.querySelectorAll('[data-stacking-cards-item]')];
-    const val = (nome) => parseFloat(getComputedStyle(pila).getPropertyValue(nome)) || 0;
-    pila.classList.add('pila--animata');
-    // Passo e altezza delle card li decide la CSS in base alla finestra: si leggono dal layout
-    const passoPila = () => cards[1].offsetTop - cards[0].offsetTop;
-    const passo = () => cards[0].offsetHeight - passoPila();
-    const tl = gsap.timeline({
-      defaults: { ease: 'none', duration: 1 },
-      scrollTrigger: {
-        trigger: pila,
-        start: () => `top ${val('--pila-alto')}px`,
-        end: () => `+=${passo() * (cards.length - 1)}`,
-        pin: true,
-        scrub: true,
-        invalidateOnRefresh: true,
-      },
-    });
-    cards.slice(1).forEach((card, k) => {
-      const i = k + 1;
-      // parte col bordo alto in fondo allo schermo
-      tl.fromTo(card, { y: () => window.innerHeight - val('--pila-alto') - i * passoPila() }, { y: 0 }, k);
-      cards.slice(0, i).forEach((sotto, j) => {
-        tl.fromTo(sotto, { '--rientro': () => `${(i - 1 - j) * val('--pila-rientro')}px` }, { '--rientro': () => `${(i - j) * val('--pila-rientro')}px` }, k);
-      });
-    });
-    return () => { tl.scrollTrigger.kill(); tl.kill(); gsap.set(cards, { clearProps: 'transform,--rientro' }); pila.classList.remove('pila--animata'); };
+/* ---------- expanding-feature-pills: i cinque valori, quello attivo si allarga e mostra la frase ---------- */
+// Adattato in orizzontale (5 colonne, la larghezza la fa flex-grow in CSS) e a fisarmonica sotto i 1024 px.
+// Si attiva col clic, col tasto e, col mouse, al passaggio.
+function initValori() {
+  const riga = document.querySelector('[data-valori]');
+  if (!riga) return;
+  const voci = [...riga.querySelectorAll('[data-valore]')];
+  // il passaggio del mouse attiva solo nelle 5 colonne: nella fisarmonica le righe si spostano e il mouse ne aprirebbe un'altra
+  const conHover = window.matchMedia('(hover: hover) and (pointer: fine) and (min-width: 1100px)');
+  const attiva = (k) => voci.forEach((v, i) => {
+    v.classList.toggle('is-attivo', i === k);
+    v.querySelector('button').setAttribute('aria-expanded', String(i === k));
+  });
+  voci.forEach((v, i) => {
+    v.querySelector('button').addEventListener('click', () => attiva(i));
+    v.addEventListener('pointerenter', () => { if (conHover.matches) attiva(i); });
   });
 }
 
@@ -255,6 +219,21 @@ function initOrizzontale() {
     const max = binario.scrollWidth - binario.clientWidth;
     if (max > 0) segna(binario.scrollLeft / max);
   }, { passive: true });
+  // Pillole delle aree nell'hero: portano al pannello giusto (col pin si scorre fino al suo punto, senza pin si scorre il binario)
+  let pin = null;
+  document.querySelectorAll('[data-vai-area]').forEach((a) => a.addEventListener('click', (e) => {
+    const k = +a.dataset.vaiArea;
+    if (pin) {
+      e.preventDefault();
+      // il punto in cui il pannello k arriva al bordo sinistro (l'ultimo arriva a fine corsa)
+      const p = Math.min(1, (nastro.children[k].offsetLeft - nastro.children[0].offsetLeft) / (pin.end - pin.start));
+      const y = pin.start + (pin.end - pin.start) * p + 1;
+      if (lenis) lenis.scrollTo(y, { duration: durata('--durata-ancora') }); else window.scrollTo({ top: y, behavior: moto.ok() ? 'smooth' : 'auto' });
+    } else {
+      // salto secco: uno scorrimento morbido qui interromperebbe quello di Lenis verso la sezione
+      binario.scrollTo({ left: nastro.children[k].offsetLeft - nastro.children[0].offsetLeft, behavior: 'instant' });
+    }
+  }));
   if (!conGsap) return;
   gsap.matchMedia().add('(min-width: 768px) and (prefers-reduced-motion: no-preference)', () => {
     binario.classList.add('binario--bloccato');
@@ -273,7 +252,8 @@ function initOrizzontale() {
         onUpdate: (self) => segna(self.progress),
       },
     });
-    return () => { tween.scrollTrigger.kill(); tween.kill(); gsap.set(nastro, { clearProps: 'transform' }); binario.classList.remove('binario--bloccato'); segna(0); };
+    pin = tween.scrollTrigger;
+    return () => { pin = null; tween.scrollTrigger.kill(); tween.kill(); gsap.set(nastro, { clearProps: 'transform' }); binario.classList.remove('binario--bloccato'); segna(0); };
   });
 }
 

@@ -68,75 +68,88 @@
 
 <main id="contenuto">
 
-  <!-- Hero · centered-scaling-navigation-bar + scaling-element-on-scroll-gsap-flip (inizio) -->
-  <header class="hero scuro">
+  <!-- Hero (rifatta il 3 nov su indicazione di Alberto: fondo chiaro e primo schermo pieno) · scaling-element-on-scroll-gsap-flip (inizio) -->
+  <header class="hero">
     <p class="hero__lingue" aria-label="Lingua"><a href="./" aria-current="true">IT</a><a href="#" lang="en">EN</a><a href="#" lang="fr">FR</a></p>
     <a class="pillola-bottone hero__contatti" href="#contatti">Contatti <svg class="icona-16" aria-hidden="true"><use href="#i-ne"/></svg></a>
-    <div class="hero__testo">
-      <p class="tag tag--scuro"><span class="tag__punto"></span>Studio legale ·<span class="hero__luogo"> Lungotevere Arnaldo da Brescia,</span> Roma</p>
-      <h1 class="t-h1 hero__titolo">Sulla frontiera del<br> diritto del lavoro</h1>
-      <p class="t-lead hero__lead">Consulenza e contenzioso in diritto del lavoro, sindacale e della previdenza sociale per i principali gruppi italiani e internazionali, anche in inglese e francese.</p>
-      <a class="bottone bottone--chiaro" href="#studio">Scopri lo Studio <span class="bottone__bolla"><svg class="icona-20" aria-hidden="true"><use href="#i-giu"/></svg></span></a>
-    </div>
-    <div class="hero__foto" data-flip-element="wrapper">
-      <img class="foto-flip" data-flip-element="target" src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Lungotevere" width="2000" height="1250" fetchpriority="high">
+    <div class="contenitore hero__griglia">
+      <div class="hero__testo">
+        <p class="tag tag--bianco"><span class="tag__punto"></span>Studio legale ·<span class="hero__luogo"> Lungotevere Arnaldo da Brescia,</span> Roma</p>
+        <h1 class="t-h1 hero__titolo">Sulla frontiera del diritto del lavoro</h1>
+        <p class="t-lead hero__lead">Consulenza e contenzioso in diritto del lavoro, sindacale e della previdenza sociale per i principali gruppi italiani e internazionali, anche in inglese e francese.</p>
+        <div class="hero__azioni">
+          <a class="bottone bottone--inchiostro bottone--grande" href="#contatti">Scrivete allo Studio <span class="bottone__bolla"><svg class="icona-20" aria-hidden="true"><use href="#i-destra"/></svg></span></a>
+          <a class="bottone bottone--bianco bottone--grande" href="#studio">Scopri lo Studio <span class="bottone__bolla"><svg class="icona-20" aria-hidden="true"><use href="#i-giu"/></svg></span></a>
+        </div>
+        <div class="hero__aree">
+          <p class="t-etichetta">Aree di competenza</p>
+          <ul class="hero__pillole">
+            <li><a class="pillola-area" href="#aree" data-vai-area="0">Diritto del lavoro e relazioni industriali <svg class="icona-16" aria-hidden="true"><use href="#i-ne"/></svg></a></li>
+            <li><a class="pillola-area" href="#aree" data-vai-area="1">Real Estate, Turismo e Hotellerie <svg class="icona-16" aria-hidden="true"><use href="#i-ne"/></svg></a></li>
+            <li><a class="pillola-area" href="#aree" data-vai-area="2">Lavoro creativo e lusso <svg class="icona-16" aria-hidden="true"><use href="#i-ne"/></svg></a></li>
+          </ul>
+        </div>
+        <ul class="numeri" aria-label="Lo Studio in numeri">
+          <li class="numero"><span class="t-numero">20</span> materie</li>
+          <li class="numero"><span class="t-numero">5</span> servizi</li>
+          <li class="numero"><span class="t-numero">3</span> lingue</li>
+        </ul>
+      </div>
+      <div class="hero__foto" data-flip-element="wrapper">
+        <img class="foto-flip" data-flip-element="target" src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Lungotevere" width="2000" height="1250" fetchpriority="high">
+      </div>
     </div>
   </header>
 
-  <!-- Foto a tutta larghezza · scaling-element-on-scroll-gsap-flip (fine) -->
-  <section class="foto-grande scuro" aria-label="Lo Studio in numeri">
+  <!-- Foto a tutta larghezza · scaling-element-on-scroll-gsap-flip (fine): la foto dell'hero arriva qui allargandosi -->
+  <div class="foto-grande" aria-hidden="true">
     <div class="foto-grande__cornice" data-flip-element="wrapper">
       <img class="foto-grande__img" src="img/cassazione-tevere.webp" alt="" width="2000" height="1250" loading="lazy">
-      <ul class="numeri">
-        <li class="numero"><span class="t-numero">20</span> materie</li>
-        <li class="numero"><span class="t-numero">5</span> servizi</li>
-        <li class="numero"><span class="t-numero">3</span> lingue</li>
-      </ul>
     </div>
-  </section>
+  </div>
 
-  <!-- Il metodo · highlight-marker-text-reveal -->
+  <!-- Il metodo · highlight-text-on-scroll (le parole passano da grigio a blu scorrendo) -->
   <section class="metodo chiaro" id="studio">
     <div class="contenitore metodo__dentro">
       <p class="tag tag--polvere"><span class="tag__punto"></span>Il metodo</p>
-      <h2 class="t-manifesto metodo__testo" data-highlight-marker-reveal>Il metodo di lavoro dello Studio consiste nel massimizzare il valore delle prestazioni, garantendo creatività, efficienza, dinamicità ed un approccio ai problemi flessibile ed efficace, per una consulenza tempestiva, anche in inglese e francese.</h2>
+      <h2 class="t-manifesto metodo__testo" data-highlight-text>Il metodo di lavoro dello Studio consiste nel massimizzare il valore delle prestazioni, garantendo creatività, efficienza, dinamicità ed un approccio ai problemi flessibile ed efficace, per una consulenza tempestiva, anche in inglese e francese.</h2>
     </div>
   </section>
 
-  <!-- Valori · stacking-cards-parallax -->
+  <!-- Valori · expanding-feature-pills (5 colonne: quella attiva si allarga e mostra la frase) -->
   <section class="valori scuro" aria-labelledby="valori-titolo">
     <div class="contenitore">
       <div class="testata testata--stretta">
         <p class="t-etichetta">I valori dello Studio</p>
         <h2 class="t-h2" id="valori-titolo">Cinque valori, un solo metodo.</h2>
       </div>
-      <ol class="pila" data-stacking-cards>
-        <li class="card-valore card-valore--superficie" data-stacking-cards-item style="--i:0">
-          <div class="card-valore__riga"><span class="t-tag">01</span><h3 class="t-h3 card-valore__nome">Equilibrio</h3><p class="t-testo card-valore__testo">Deontologia professionale e tecnica negoziale per la risoluzione dei conflitti di lavoro.</p><span class="t-tag card-valore__conta">01 / 05</span></div>
-          <div class="card-valore__corpo"><p class="t-h1 card-valore__grande" aria-hidden="true">Equilibrio</p></div>
+      <ol class="valori__riga" data-valori>
+        <li class="valore is-attivo" data-valore>
+          <h3 class="valore__testa"><button class="valore__bottone" type="button" aria-expanded="true" aria-controls="valore-1"><span class="t-tag valore__numero">01</span><span class="t-h3 valore__nome">Equilibrio</span><span class="valore__piu" aria-hidden="true"><svg class="icona-16"><use href="#i-ne"/></svg></span></button></h3>
+          <p class="t-testo valore__testo" id="valore-1">Deontologia professionale e tecnica negoziale per la risoluzione dei conflitti di lavoro.</p>
         </li>
-        <li class="card-valore card-valore--accento" data-stacking-cards-item style="--i:1">
-          <div class="card-valore__riga"><span class="t-tag">02</span><h3 class="t-h3 card-valore__nome">Essenzialità</h3><p class="t-testo card-valore__testo">Pragmatismo e capacità decisionale direttamente al cuore dei problemi.</p><span class="t-tag card-valore__conta">02 / 05</span></div>
-          <div class="card-valore__corpo"><p class="t-h1 card-valore__grande" aria-hidden="true">Essenzialità</p></div>
+        <li class="valore" data-valore>
+          <h3 class="valore__testa"><button class="valore__bottone" type="button" aria-expanded="false" aria-controls="valore-2"><span class="t-tag valore__numero">02</span><span class="t-h3 valore__nome">Essenzialità</span><span class="valore__piu" aria-hidden="true"><svg class="icona-16"><use href="#i-ne"/></svg></span></button></h3>
+          <p class="t-testo valore__testo" id="valore-2">Pragmatismo e capacità decisionale direttamente al cuore dei problemi.</p>
         </li>
-        <li class="card-valore card-valore--chiaro" data-stacking-cards-item style="--i:2">
-          <div class="card-valore__riga"><span class="t-tag">03</span><h3 class="t-h3 card-valore__nome">Efficacia</h3><p class="t-testo card-valore__testo">Reperibilità sicura e soluzioni tempestive al servizio dei propri clienti.</p><span class="t-tag card-valore__conta">03 / 05</span></div>
-          <div class="card-valore__corpo"><p class="t-h1 card-valore__grande" aria-hidden="true">Efficacia</p></div>
+        <li class="valore" data-valore>
+          <h3 class="valore__testa"><button class="valore__bottone" type="button" aria-expanded="false" aria-controls="valore-3"><span class="t-tag valore__numero">03</span><span class="t-h3 valore__nome">Efficacia</span><span class="valore__piu" aria-hidden="true"><svg class="icona-16"><use href="#i-ne"/></svg></span></button></h3>
+          <p class="t-testo valore__testo" id="valore-3">Reperibilità sicura e soluzioni tempestive al servizio dei propri clienti.</p>
         </li>
-        <li class="card-valore card-valore--superficie" data-stacking-cards-item style="--i:3">
-          <div class="card-valore__riga"><span class="t-tag">04</span><h3 class="t-h3 card-valore__nome">Eccellenza</h3><p class="t-testo card-valore__testo">Sapienza accademica e approfondimento scientifico nel segno della qualità.</p><span class="t-tag card-valore__conta">04 / 05</span></div>
-          <div class="card-valore__corpo"><p class="t-h1 card-valore__grande" aria-hidden="true">Eccellenza</p></div>
+        <li class="valore" data-valore>
+          <h3 class="valore__testa"><button class="valore__bottone" type="button" aria-expanded="false" aria-controls="valore-4"><span class="t-tag valore__numero">04</span><span class="t-h3 valore__nome">Eccellenza</span><span class="valore__piu" aria-hidden="true"><svg class="icona-16"><use href="#i-ne"/></svg></span></button></h3>
+          <p class="t-testo valore__testo" id="valore-4">Sapienza accademica e approfondimento scientifico nel segno della qualità.</p>
         </li>
-        <li class="card-valore card-valore--accento" data-stacking-cards-item style="--i:4">
-          <div class="card-valore__riga"><span class="t-tag">05</span><h3 class="t-h3 card-valore__nome">Evoluzione</h3><p class="t-testo card-valore__testo">Propensione al cambiamento e abilità digitale per una realtà in continua trasformazione.</p><span class="t-tag card-valore__conta">05 / 05</span></div>
-          <div class="card-valore__corpo"><p class="t-h1 card-valore__grande" aria-hidden="true">Evoluzione</p><img class="card-valore__foto" src="img/scala-bianca.webp" alt="Una scala a chiocciola bianca vista dal basso" width="2000" height="1250" loading="lazy"></div>
+        <li class="valore" data-valore>
+          <h3 class="valore__testa"><button class="valore__bottone" type="button" aria-expanded="false" aria-controls="valore-5"><span class="t-tag valore__numero">05</span><span class="t-h3 valore__nome">Evoluzione</span><span class="valore__piu" aria-hidden="true"><svg class="icona-16"><use href="#i-ne"/></svg></span></button></h3>
+          <p class="t-testo valore__testo" id="valore-5">Propensione al cambiamento e abilità digitale per una realtà in continua trasformazione.</p>
         </li>
       </ol>
     </div>
   </section>
 
   <!-- Aree · horizontal-scrolling-sections + scroll-progress-bar -->
-  <section class="aree chiaro" aria-labelledby="aree-titolo" data-horizontal-scroll-wrap>
+  <section class="aree chiaro" id="aree" aria-labelledby="aree-titolo" data-horizontal-scroll-wrap>
     <div class="contenitore aree__testata">
       <div class="testata">
         <p class="tag tag--polvere"><span class="tag__punto"></span>Aree di competenza</p>

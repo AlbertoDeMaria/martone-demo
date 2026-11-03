@@ -27,6 +27,7 @@
   --colore-linea: #2a3b63;
   --colore-linea-chiara: #d5dfec;
   --colore-velo: rgba(9, 19, 48, 0.7);
+  --colore-testo-spento: #7a88a3;     /* non nel Figma: parole del metodo prima di colorarsi (3,6:1 sul bianco, testo grande) */
   --colore-errore: #b42318;           /* non nel Figma: errori del modulo (contrasto 6,5:1 sul bianco) */
 
   /* Raggi */
@@ -36,7 +37,6 @@
   --raggio-pannello: 40px;
   --raggio-campo: 24px;
   --raggio-foto-mobile: 28px;
-  --raggio-evidenziatore: 6px;
 
   /* Tipografia: valore mobile a 390 px, valore desktop a 1440 px */
   --font: 'Urbanist', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -168,69 +168,59 @@ button { font: inherit; color: inherit; background: none; border: 0; padding: 0;
 [data-navigation-status="active"] svg.nav__se-aperto { display: block; }
 [data-navigation-status="active"] [data-navigation-item] { opacity: 1; transform: none; transition-delay: var(--ritardo, 0s); }
 
-/* ============ Hero ============ */
-.hero { position: relative; padding: 176px var(--margine) 56px; display: flex; flex-direction: column; align-items: center; gap: 81px; }
+/* ============ Hero (3 nov: fondo chiaro, primo schermo pieno; il navy resta su testi, menu e bottoni) ============ */
+.hero { position: relative; background: var(--colore-chiaro-2); color: var(--colore-inchiostro); padding: 128px 0 48px; }
 .hero__lingue { position: absolute; left: var(--margine); top: 42px; display: flex; gap: 14px; font-size: var(--tipo-tag); font-weight: 500; line-height: 1.2; }
-.hero__lingue a { color: var(--colore-testo-2); }
-.hero__lingue a[aria-current] { color: var(--colore-testo); }
+.hero__lingue a { color: var(--colore-inchiostro-2); }
+.hero__lingue a[aria-current] { color: var(--colore-inchiostro); }
 .hero__contatti { position: absolute; right: var(--margine); top: 28px; }
-.hero__testo { width: 100%; max-width: 960px; display: flex; flex-direction: column; align-items: center; gap: 26px; text-align: center; }
-.hero__testo .tag, .hero__testo .bottone { align-self: center; }
-.hero__lead { max-width: 700px; color: var(--colore-testo-2); }
-.hero__foto { width: 360px; height: 220px; }
-.foto-flip { position: relative; z-index: 2; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: var(--raggio-foto); }
+.hero__griglia { display: grid; grid-template-columns: minmax(0, 620fr) minmax(0, 628fr); gap: 64px; align-items: stretch; }
+.hero__testo { display: flex; flex-direction: column; align-items: flex-start; gap: 24px; }
+.hero__titolo { max-width: 600px; }
+.hero__lead { max-width: 580px; color: var(--colore-inchiostro-2); }
+.hero__azioni { display: flex; flex-wrap: wrap; gap: 10px; }
+.hero__aree { display: flex; flex-direction: column; gap: 12px; margin-top: 8px; }
+.hero__aree .t-etichetta { color: var(--colore-inchiostro-2); }
+.hero__pillole { display: flex; flex-wrap: wrap; gap: 8px; }
+.pillola-area { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px 10px 16px; border-radius: var(--raggio-pillola); background: var(--colore-chiaro); color: var(--colore-inchiostro); font-size: var(--tipo-voce); font-weight: 500; line-height: 1.2; transition: background-color var(--dur-interazione) var(--ease-interazione), color var(--dur-interazione) var(--ease-interazione); }
+.pillola-area:hover { background: var(--colore-inchiostro); color: var(--colore-chiaro); }
+.numeri { display: flex; flex-wrap: wrap; gap: 8px; margin-top: auto; padding-top: 8px; }
+.numero { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 26px; border-radius: var(--raggio-pillola); background: var(--colore-chiaro); color: var(--colore-inchiostro); font-size: var(--tipo-voce); font-weight: 500; line-height: 1.2; white-space: nowrap; }
+.hero__foto { min-height: 560px; }
+.foto-flip { position: relative; z-index: 2; width: 100%; height: 100%; max-width: none; object-fit: cover; border-radius: var(--raggio-pannello); }
+.tag--bianco { background: var(--colore-chiaro); color: var(--colore-inchiostro); }
+.bottone--bianco { background: var(--colore-chiaro); color: var(--colore-inchiostro); }
+.bottone--bianco .bottone__bolla { background: var(--colore-inchiostro); color: var(--colore-accento); }
+.bottone--bianco:hover { background: var(--colore-accento); }
 
-/* ============ Foto a tutta larghezza ============ */
-.foto-grande { padding: 0 16px 16px; }
+/* ============ Foto a tutta larghezza (arrivo del Flip) ============ */
+.foto-grande { padding: 0 16px 16px; background: var(--colore-chiaro-2); }
 .foto-grande__cornice { position: relative; height: 744px; max-width: 1920px; margin-inline: auto; }
 .foto-grande__img { width: 100%; height: 100%; object-fit: cover; border-radius: var(--raggio-pannello); }
 html.flip-attivo .foto-grande__img { visibility: hidden; }
-.numeri { position: absolute; z-index: 3; left: 32px; bottom: 40px; display: flex; gap: 8px; }
-.numero { display: flex; align-items: center; gap: 10px; height: 64px; padding: 0 26px; border-radius: var(--raggio-pillola); background: var(--colore-accento); color: var(--colore-su-accento); font-size: var(--tipo-voce); font-weight: 500; line-height: 1.2; white-space: nowrap; }
 
-/* ============ Il metodo · highlight-marker-text-reveal ============ */
+/* ============ Il metodo · highlight-text-on-scroll ============ */
 .metodo { padding-block: var(--sezione); }
 .metodo__dentro { display: flex; flex-direction: column; gap: 32px; }
 .metodo__testo { max-width: 1180px; }
-.highlight-marker-line { display: inline-block !important; width: auto; }
-.highlight-marker-bar { position: absolute; inset: 0.05em 0; z-index: 1; border-radius: var(--raggio-evidenziatore); pointer-events: none; }
-@media (prefers-reduced-motion: no-preference) {
-  html.gsap [data-highlight-marker-reveal] { visibility: hidden; }
-}
 
-/* ============ Valori · stacking-cards-parallax ============ */
-.valori { padding-block: var(--sezione); overflow: clip; }
+/* ============ Valori · expanding-feature-pills (versione orizzontale a 5 colonne) ============ */
+.valori { padding-block: var(--sezione); }
 .valori .testata { margin-bottom: 48px; }
-/* La pila bloccata deve stare tutta nello schermo: passo e altezza delle card si ricavano dall'altezza della finestra.
-   Con finestra alta (1920×1080) tornano i valori del Figma: passo 104, card 540. */
-.pila {
-  --pila-alto: 96px;      /* sotto la pillola del menu (24 + 56) */
-  --pila-fondo: 24px;
-  --passo-max: 104px;
-  --card-max: 540px;
-  --card-min: 300px;
-  --pila-rientro: 20px;
-  --pila-spazio: calc(100svh - var(--pila-alto) - var(--pila-fondo));
-  --pila-passo: clamp(56px, calc((var(--pila-spazio) - var(--card-min)) / 4), var(--passo-max));
-  --card-alta: clamp(var(--card-min), calc(var(--pila-spazio) - 4 * var(--pila-passo)), var(--card-max));
-  display: flex; flex-direction: column; gap: 12px;
-}
-.card-valore { display: flex; flex-direction: column; gap: 20px; height: var(--card-alta); padding: clamp(16px, calc(var(--pila-passo) - 56px), 28px) 32px 32px; border-radius: var(--raggio-card); } /* col passo stretto la testata sale, così una descrizione su due righe resta nella fascia */
-/* Con il movimento: la pila del Figma (card sfalsate di --pila-passo), le card entrano dal basso col pin */
-.pila--animata { position: relative; display: block; height: calc(var(--card-alta) + 4 * var(--pila-passo)); }
-.pila--animata .card-valore { position: absolute; left: var(--rientro, 0px); right: var(--rientro, 0px); top: calc(var(--i) * var(--pila-passo)); }
-.card-valore__riga { display: flex; align-items: center; gap: 16px; }
-.card-valore__nome { width: 240px; flex: none; }
-.card-valore__testo { flex: 1; min-width: 0; }
-.card-valore__conta { white-space: nowrap; }
-.card-valore__corpo { flex: 1; min-height: 0; display: flex; gap: 24px; }
-.card-valore__grande { flex: 1; align-self: flex-end; white-space: nowrap; }
-.card-valore__foto { width: 520px; height: 100%; object-fit: cover; border-radius: var(--raggio-foto); flex: none; }
-.card-valore--superficie { background: var(--colore-superficie); color: var(--colore-testo); }
-.card-valore--superficie .t-tag, .card-valore--superficie .card-valore__testo { color: var(--colore-testo-2); }
-.card-valore--accento { background: var(--colore-accento); color: var(--colore-su-accento); }
-.card-valore--chiaro { background: var(--colore-chiaro); color: var(--colore-inchiostro); }
-.card-valore--chiaro .t-tag, .card-valore--chiaro .card-valore__testo { color: var(--colore-inchiostro-2); }
+.valori__riga { display: flex; gap: 12px; height: 340px; }
+.valore { position: relative; flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; padding: 28px; border-radius: var(--raggio-card); background: var(--colore-superficie); color: var(--colore-testo); overflow: hidden; transition: flex-grow 0.6s var(--ease-osmo), background-color 0.4s var(--ease-interazione), color 0.4s var(--ease-interazione); }
+.valore.is-attivo { flex-grow: 3.2; background: var(--colore-accento); color: var(--colore-su-accento); }
+.valore:not(.is-attivo):hover { background: var(--colore-linea); }
+.valore__testa { flex: 1; min-height: 0; margin: 0; }
+.valore__bottone { display: flex; flex-direction: column; justify-content: space-between; align-items: flex-start; width: 100%; height: 100%; text-align: left; }
+.valore__bottone::after { content: ''; position: absolute; inset: 0; border-radius: inherit; } /* tutta la card risponde al clic */
+.valore__numero { color: var(--colore-testo-2); transition: color 0.4s var(--ease-interazione); }
+.valore.is-attivo .valore__numero { color: var(--colore-inchiostro-2); }
+.valore__nome { white-space: nowrap; }
+.valore__piu { position: absolute; top: 20px; right: 20px; display: grid; place-items: center; width: 40px; height: 40px; border-radius: var(--raggio-pillola); background: var(--colore-linea); color: var(--colore-testo); transition: opacity 0.3s var(--ease-interazione), transform 0.4s var(--ease-osmo); }
+.valore.is-attivo .valore__piu { opacity: 0; transform: scale(0.6); }
+.valore__testo { max-width: 440px; max-height: 0; overflow: hidden; opacity: 0; transition: max-height 0.5s var(--ease-osmo), margin 0.5s var(--ease-osmo), opacity 0.3s var(--ease-interazione); }
+.valore.is-attivo .valore__testo { max-height: 7em; margin-top: 12px; opacity: 1; transition-delay: 0s, 0s, 0.25s; }
 
 /* ============ Aree · horizontal-scrolling-sections + scroll-progress-bar ============ */
 .aree { padding-block: var(--sezione); overflow: hidden; }
@@ -427,20 +417,20 @@ html.flip-attivo .foto-grande__img { visibility: hidden; }
 .bottone-superficie:hover { background: var(--colore-linea); }
 
 /* ============ Tablet ============ */
+/* Valori: sotto i 1100 px le cinque colonne non reggono i nomi, si passa alla fisarmonica verticale */
+@media (max-width: 1099px) {
+  .valori__riga { flex-direction: column; height: auto; gap: 8px; }
+  .valore { flex: none; padding: 18px 20px; }
+  .valore__bottone { flex-direction: row; justify-content: flex-start; align-items: center; gap: 14px; padding-right: 48px; }
+  .valore__piu { top: 12px; right: 12px; }
+  .valore__nome { white-space: normal; }
+}
 @media (max-width: 1199px) {
   .footer__colonne { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 48px; }
 }
 @media (max-width: 1023px) {
-  /* Card dei valori: la descrizione scende sotto il titolo grande (layout mobile del Figma), così la testata sta nella fascia */
-  .card-valore { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-rows: auto auto auto 1fr; align-content: start; column-gap: 12px; row-gap: 0; padding: 20px; }
-  .card-valore__riga, .card-valore__corpo { display: contents; }
-  .card-valore__riga > .t-tag:first-child { align-self: center; }
-  .card-valore__nome { width: auto; }
-  .card-valore__conta { align-self: center; }
-  .card-valore__grande { grid-column: 1 / -1; grid-row: 2; margin-top: calc(var(--pila-passo) - 44px); white-space: normal; } /* il titolo grande parte sotto la fascia visibile della card, così non spunta quando è coperta */
-  .card-valore__testo { grid-column: 1 / -1; grid-row: 3; margin-top: 16px; }
-  .card-valore--superficie .card-valore__testo { color: var(--colore-testo-2); }
-  .card-valore__foto { grid-column: 1 / -1; grid-row: 4; width: 100%; height: 100%; min-height: 0; margin-top: 24px; }
+  .hero__griglia { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .hero__foto { min-height: 0; height: clamp(260px, 50vw, 480px); }
   .griglia-materie { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .contatti__riga { grid-template-columns: minmax(0, 1fr); gap: 48px; }
   .soci__riga { grid-template-columns: minmax(0, 1fr); gap: 40px; }
@@ -463,23 +453,28 @@ html.flip-attivo .foto-grande__img { visibility: hidden; }
   .nav__voce { gap: 12px; padding: 12px 16px; }
   .nav__striscia { flex-direction: column; gap: 0; }
 
-  .hero { padding: 120px var(--margine) 48px; gap: 102px; }
+  .hero { padding: 100px 0 32px; }
+  /* sul telefono la foto sale subito dopo i bottoni, così si vede già al primo schermo */
+  .hero__griglia { display: flex; flex-direction: column; gap: 18px; }
+  .hero__testo { display: contents; }
+  .hero__foto { order: 1; }
+  .hero__aree, .numeri { order: 2; }
   .hero__lingue, .hero__contatti { display: none; }
   .hero__luogo { display: none; }
-  .hero__testo { gap: 20px; }
-  .hero__foto { width: 240px; height: 150px; }
+  .hero__testo { gap: 18px; }
+  .hero__aree { margin-top: 4px; }
+  .numeri { gap: 6px; padding-top: 0; }
+  .numero { height: 48px; padding: 0 16px; gap: 8px; }
+  .hero__foto { min-height: 0; height: 260px; }
+  .foto-flip { border-radius: var(--raggio-foto-mobile); }
 
   .foto-grande { padding: 0 8px 16px; }
   .foto-grande__cornice { height: 504px; }
   .foto-grande__img { border-radius: var(--raggio-card); }
-  .numeri { left: 16px; bottom: 24px; flex-direction: column; align-items: flex-start; }
-  .numero { height: 48px; padding: 0 18px; }
 
   .metodo__dentro { gap: 24px; }
 
   .valori .testata { margin-bottom: 28px; }
-  .pila { --pila-alto: 84px; --passo-max: 76px; --card-max: 560px; --card-min: 400px; --pila-fondo: 16px; --pila-rientro: 8px; }
-  .card-valore__foto { height: auto; max-height: 200px; }
 
   .aree__testata { flex-direction: column; align-items: stretch; gap: 4px; margin-bottom: 28px; }
   .avanzamento { width: 100%; }
