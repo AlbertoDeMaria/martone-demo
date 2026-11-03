@@ -20,50 +20,51 @@
 </svg>
 <a class="salta" href="#contenuto">Vai al contenuto</a>
 <header class="testata wrap">
-  <div class="testata__barra"><a class="logo" href="./" aria-label="Martone & Martone, home"></a></div>
-  <nav class="testata__menu" aria-label="Menu principale">
-    <a href="chi-siamo.html"><span class="sottolineato">Chi siamo</span></a>
-    <a href="#contatti"><span class="sottolineato">Contatti</span></a>
-  </nav>
+  <div class="testata__barra">
+    <a class="logo" href="./" aria-label="Martone & Martone, home"></a>
+    <nav class="testata__menu" aria-label="Menu principale">
+      <a href="chi-siamo.html"><span class="sottolineato">Chi siamo</span></a>
+      <a href="#contatti"><span class="sottolineato">Contatti</span></a>
+    </nav>
+  </div>
 </header>
 
 <main id="contenuto" tabindex="-1">
   <section class="hero wrap" aria-labelledby="titolo">
     <div class="hero__testo">
-      <h1 class="hero__logo"><span class="logo" aria-hidden="true"></span><span class="sr-only">Studio Legale Martone &amp; Martone</span></h1>
-      <p class="t-display" id="titolo">Aree di competenza e assistenza alle imprese</p>
+      <h1 class="t-display" id="titolo" data-titolo>Aree di competenza e assistenza alle imprese</h1>
     </div>
     <img class="hero__foto" src="img/ponte.webp" alt="Un arco di ponte sul Tevere, a Roma" width="1700" height="1062" fetchpriority="high">
   </section>
 
   <!-- Testo dal «Testo pagina 1.docx» dello Studio, parola per parola -->
   <section class="studio scuro" aria-label="Lo Studio">
-    <div class="studio__wrap wrap" data-comparsa>
+    <div class="studio__wrap wrap" data-evidenzia>
       <p class="t-statement">Lo Studio Legale ha sviluppato una significativa expertise nel campo del diritto del lavoro, della previdenza sociale e delle relazioni industriali, assistendo i principali gruppi italiani e internazionali, nonché società nazionali e multinazionali che operano prevalentemente in Italia. Fornisce assistenza anche in lingua inglese e francese, con una marcata specializzazione nei settori bancario, assicurativo, metalmeccanico e delle telecomunicazioni.</p>
       <p class="t-statement">Nelle medesime materie svolge inoltre un’importante attività di <i lang="en">advocacy</i>, coordinata dal Professor Martone.</p>
     </div>
   </section>
 
   <div class="settori wrap">
-    <article class="settore" data-comparsa>
+    <article class="settore">
       <div class="settore__testo">
-        <h2 class="t-area">Settore Real Estate, Turismo e Hotellerie</h2>
+        <h2 class="t-area" data-titolo>Settore Real Estate, Turismo e Hotellerie</h2>
         <p class="t-body">Accanto alla tradizionale attività giuslavoristica, lo Studio Legale Martone ha consolidato una solida esperienza nei settori del turismo e dell’alberghiero, affiancando primari gruppi nazionali e internazionali. In particolare, vanta un’elevata competenza nelle operazioni di acquisizione e valorizzazione di complessi immobiliari destinati all’ospitalità e alle strutture ricettive.</p>
       </div>
-      <img class="settore__foto" src="img/hotel.webp" alt="" width="2000" height="1250" loading="lazy">
+      <img class="settore__foto" data-foto src="img/hotel.webp" alt="" width="2000" height="1250" loading="lazy">
     </article>
-    <article class="settore" data-comparsa>
+    <article class="settore">
       <div class="settore__testo">
-        <h2 class="t-area">Tutela del lavoro creativo e clienti esteri nel settore del lusso</h2>
+        <h2 class="t-area" data-titolo>Tutela del lavoro creativo e clienti esteri nel settore del lusso</h2>
         <p class="t-body">Lo studio offre consulenza e assistenza legale a soggetti e professionisti stranieri che intendono stabilire la propria attività principale in Italia, supportandoli nell’applicazione delle agevolazioni normative e fiscali (come i regimi agevolati per i neo-residenti). Offre inoltre servizi di tutela e valorizzazione del lavoro creativo, con un focus mirato al settore del lusso.</p>
       </div>
-      <img class="settore__foto" src="img/atelier.webp" alt="" width="2000" height="1250" loading="lazy">
+      <img class="settore__foto" data-foto src="img/atelier.webp" alt="" width="2000" height="1250" loading="lazy">
     </article>
   </div>
 
 <section class="contatti wrap" id="contatti" aria-labelledby="contatti-titolo">
   <div class="contatti__box">
-    <img class="contatti__foto" src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Tevere tra gli alberi" width="2000" height="1250" loading="lazy">
+    <img class="contatti__foto" data-foto src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Tevere tra gli alberi" width="2000" height="1250" loading="lazy">
     <div class="contatti__card scuro" data-comparsa>
       <h2 class="eyebrow" id="contatti-titolo">Contatti</h2>
       <ul class="recapiti">

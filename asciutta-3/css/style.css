@@ -31,6 +31,7 @@
   --fs-lead: clamp(16px, 14.89px + 0.286vw, 19px);
 
   --gutter: clamp(16px, 4.11px + 3.048vw, 48px);
+  --testata-h: 96px;   /* testata fissa col logo grande */
   --sezione: clamp(72px, 54.17px + 4.571vw, 120px);
   --durata: 0.6s;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -39,7 +40,8 @@
 /* ============ Base ============ */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { margin: 0; background: var(--fondo); color: var(--testo); font: 400 16px/26px var(--font); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+html { scroll-padding-top: var(--testata-h); }   /* Tab e ancore non finiscono sotto la testata fissa */
+body { padding-top: var(--testata-h); margin: 0; background: var(--fondo); color: var(--testo); font: 400 16px/26px var(--font); -webkit-font-smoothing: antialiased; overflow-x: clip; }
 img { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
 h1, h2, h3, p, ul { margin: 0; padding: 0; }
@@ -54,6 +56,7 @@ ul { list-style: none; }
 :focus-visible { outline: 2px solid var(--accento); outline-offset: 3px; border-radius: 4px; }
 .chiaro :focus-visible { outline-color: var(--fondo); }
 [tabindex="-1"]:focus { outline: none; }
+[id] { scroll-margin-top: 8px; }
 
 .salta { position: absolute; left: 16px; top: -100px; z-index: 100; background: var(--chiaro); color: var(--testo-scuro); padding: 12px 20px; border-radius: var(--raggio); font-weight: 600; }
 .salta:focus { top: 16px; }
@@ -78,10 +81,10 @@ ul { list-style: none; }
 .link .icona { transition: transform 0.3s var(--ease); }
 .link:hover .icona { transform: translateX(3px); }
 
-/* ============ Header minimo: logo, Chi siamo, Contatti ============ */
-.header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 28px var(--gutter); position: relative; z-index: 5; }
-.header--barra { background: var(--fondo); border-bottom: 1px solid var(--linea); }
+/* ============ Testata fissa col logo grande: logo, Chi siamo, Contatti ============ */
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; height: var(--testata-h); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 var(--gutter); background: var(--fondo-3); border-bottom: 1px solid var(--linea); }
 .logo { display: block; width: 240px; color: var(--testo); }
+.header .logo { width: 264px; }
 .logo svg { display: block; width: 100%; height: auto; aspect-ratio: 240 / 14.7239; }
 .menu { display: flex; align-items: center; gap: 32px; font-size: 15px; line-height: 20px; font-weight: 500; }
 .menu a { position: relative; padding-block: 6px; }
@@ -89,7 +92,7 @@ ul { list-style: none; }
 .menu a:hover::after, .menu a[aria-current="page"]::after { transform: scaleX(1); }
 
 /* ============ Hero: Italia di notte, logo e titolo ============ */
-.hero { position: relative; display: flex; flex-direction: column; min-height: max(100svh, 640px); background: var(--fondo-3); isolation: isolate; }
+.hero { position: relative; display: flex; flex-direction: column; margin-top: calc(-1 * var(--testata-h)); min-height: max(100svh, 640px); background: var(--fondo-3); isolation: isolate; }
 .hero__media { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
 .hero__media img { width: 100%; height: 100%; object-fit: cover; }
 .hero__media::after { content: ""; position: absolute; inset: 0;
@@ -100,8 +103,6 @@ ul { list-style: none; }
     linear-gradient(90deg, var(--fondo-3) 0%, var(--velo-forte) 40%, var(--velo-0) 75%);
 }
 .hero__testo { margin-top: auto; display: flex; flex-direction: column; align-items: flex-start; gap: 32px; padding: 0 var(--gutter) clamp(48px, 34.63px + 3.43vw, 84px); }
-.hero__logo { width: min(640px, 100%); color: var(--testo); }
-.hero__logo svg { display: block; width: 100%; height: auto; aspect-ratio: 240 / 14.7239; }
 .hero__titolo { max-width: 760px; }
 
 /* ============ Testo del docx (fascia chiara) ============ */
@@ -168,9 +169,9 @@ ul { list-style: none; }
   .contatti__righe li:first-child { grid-column: 1 / -1; }
 }
 @media (max-width: 767px) {
-  .header { padding: 16px var(--gutter); }
-  .header .logo { width: 150px; }
-  .menu { gap: 20px; font-size: 14px; }
+  :root { --testata-h: 72px; }
+  .header .logo { width: 184px; }
+  .menu { gap: 16px; font-size: 14px; }
   .hero { min-height: max(640px, min(800px, 100svh)); }
   .hero__media::after { background: linear-gradient(180deg, var(--fondo-3) 0%, var(--velo) 10%, var(--velo-0) 20%, var(--velo-0) 28%, var(--velo) 40%, var(--fondo-3) 58%); }
   .hero__testo { gap: 22px; }

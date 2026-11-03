@@ -19,22 +19,24 @@
 </svg>
 <a class="salta" href="#contenuto">Vai al contenuto</a>
 <header class="testata wrap">
-  <div class="testata__barra"><a class="logo" href="./" aria-label="Martone & Martone, home"></a></div>
-  <nav class="testata__menu" aria-label="Menu principale">
-    <a href="chi-siamo.html" aria-current="page"><span class="sottolineato">Chi siamo</span></a>
-    <a href="#contatti"><span class="sottolineato">Contatti</span></a>
-  </nav>
+  <div class="testata__barra">
+    <a class="logo" href="./" aria-label="Martone & Martone, home"></a>
+    <nav class="testata__menu" aria-label="Menu principale">
+      <a href="chi-siamo.html" aria-current="page"><span class="sottolineato">Chi siamo</span></a>
+      <a href="#contatti"><span class="sottolineato">Contatti</span></a>
+    </nav>
+  </div>
 </header>
 
 <main id="contenuto" tabindex="-1">
   <section class="intro wrap" aria-labelledby="chi-h1">
-    <h1 class="t-display" id="chi-h1">Chi siamo</h1>
+    <h1 class="t-display" id="chi-h1" data-titolo>Chi siamo</h1>
     <p class="t-body">Ritratti segnaposto: saranno sostituiti dalle foto vere.</p>
   </section>
 
   <section class="gruppo gruppo--superficie" aria-labelledby="soci-titolo">
     <div class="wrap">
-      <div class="gruppo__testa"><h2 class="t-title" id="soci-titolo">Soci</h2></div>
+      <div class="gruppo__testa"><h2 class="t-title" id="soci-titolo" data-titolo>Soci</h2></div>
       <ul class="persone">
         <li class="persona" data-comparsa>
           <img class="persona__foto" src="img/u1.webp" alt="" width="900" height="1125" loading="lazy">
@@ -63,7 +65,7 @@
 
   <section class="gruppo" aria-labelledby="team-titolo">
     <div class="wrap">
-      <div class="gruppo__testa"><h2 class="t-title" id="team-titolo">Collaboratori</h2></div>
+      <div class="gruppo__testa"><h2 class="t-title" id="team-titolo" data-titolo>Collaboratori</h2></div>
       <ul class="persone persone--4">
         <li class="persona" data-comparsa>
           <img class="persona__foto" src="img/u6.webp" alt="" width="900" height="1125" loading="lazy">
@@ -115,7 +117,7 @@
 
 <section class="contatti wrap" id="contatti" aria-labelledby="contatti-titolo">
   <div class="contatti__box">
-    <img class="contatti__foto" src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Tevere tra gli alberi" width="2000" height="1250" loading="lazy">
+    <img class="contatti__foto" data-foto src="img/cassazione-tevere.webp" alt="Il Palazzo di Giustizia di Roma visto dal Tevere tra gli alberi" width="2000" height="1250" loading="lazy">
     <div class="contatti__card scuro" data-comparsa>
       <h2 class="eyebrow" id="contatti-titolo">Contatti</h2>
       <ul class="recapiti">

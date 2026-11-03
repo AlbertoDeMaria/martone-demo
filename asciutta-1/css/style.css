@@ -42,6 +42,7 @@
   --pad-section: clamp(64px, 43.200px + 5.3333vw, 120px);
   --pad-contatti: clamp(56px, 41.143px + 3.8095vw, 96px);
   --page-max: 1440px;
+  --testata-h: 104px;   /* testata fissa: 16 + barra 72 + 16 */
 
   /* Raggi della D: 4 (foto piccole), 6 (barre, foto), 8 (schede), 10 (riquadri grandi) */
   --r-xs: 4px;
@@ -57,7 +58,9 @@
 /* ============ Base ============ */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
-body { margin: 0; background: var(--sfondo); color: var(--testo); font: 400 15px/1.5 var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
+
+html { scroll-padding-top: var(--testata-h); }   /* Tab e ancore non finiscono sotto la testata fissa */
+body { padding-top: var(--testata-h); margin: 0; background: var(--sfondo); color: var(--testo); font: 400 15px/1.5 var(--font-sans); -webkit-font-smoothing: antialiased; overflow-x: clip; }
 h1, h2, h3, p, ul { margin: 0; padding: 0; }
 h1, h2, h3 { font-weight: 500; }
 ul { list-style: none; }
@@ -66,6 +69,7 @@ a { color: inherit; text-decoration: none; }
 ::selection { background: var(--accento); color: var(--inverso); }
 :focus-visible { outline: 2px solid var(--focus, var(--testo)); outline-offset: 3px; }
 [tabindex="-1"]:focus { outline: none; }
+[id] { scroll-margin-top: 8px; }
 .sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
 .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
 .wrap { width: 100%; max-width: var(--page-max); margin-inline: auto; padding-inline: var(--gutter); }
@@ -105,17 +109,15 @@ a { color: inherit; text-decoration: none; }
 a[aria-current="page"] > .sottolineato::after { transform: scaleX(1) rotate(0.001deg); }
 .link-freccia { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 500; }
 
-/* ============ Testata minima: logo, Chi siamo, Contatti ============ */
-.testata { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 20px; }
-.testata__barra { display: flex; align-items: center; height: 52px; padding: 0 18px; border-radius: var(--r-s); background: var(--superficie); }
-.testata__barra .logo { width: 176px; }
+/* ============ Testata fissa con il logo grande: logo, Chi siamo, Contatti ============ */
+.testata { position: fixed; top: 0; left: 0; right: 0; z-index: 50; padding-block: 16px; pointer-events: none; }
+.testata__barra { pointer-events: auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; height: 72px; padding: 0 24px; border-radius: var(--r-s); background: var(--superficie); box-shadow: 0 1px 0 var(--linea); }
+.testata__barra .logo { width: 260px; }
 .testata__menu { display: flex; align-items: center; gap: 28px; font-size: 15px; font-weight: 500; }
 
 /* ============ Hero: logo e titolo, foto a destra ============ */
-.hero { display: flex; flex-direction: column; gap: 32px; padding-top: 40px; padding-bottom: clamp(48px, 30.171px + 4.5714vw, 96px); }
+.hero { display: flex; flex-direction: column; gap: 32px; padding-top: 24px; padding-bottom: clamp(48px, 30.171px + 4.5714vw, 96px); }
 .hero__testo { display: flex; flex-direction: column; gap: 28px; }
-.hero__logo { width: min(560px, 100%); }
-.hero__logo .logo { width: 100%; }
 .hero__foto { width: 100%; height: 380px; object-fit: cover; border-radius: var(--r-s); }
 /* la foto entra a tendina dall'alto, con la curva PHOTO (come nella D) */
 @media (prefers-reduced-motion: no-preference) { .hero__foto { animation: tendina 1.4s var(--ease-foto) both; } }
@@ -159,7 +161,27 @@ a[aria-current="page"] > .sottolineato::after { transform: scaleX(1) rotate(0.00
 .persona__bio.is--segnaposto { font-style: italic; }
 .persona .link-freccia { margin-top: 6px; }
 
-/* ============ Comparsa leggera (spenta con «riduci movimento») ============ */
+/* ============ Mini effetti della D (tutti spenti con «riduci movimento») ============ */
+/* highlight-text-on-scroll: le parole del primo paragrafo si accendono mentre si scorre (js) */
+.parola { transition: opacity 0.25s linear; }
+.parola.is--spenta { opacity: 0.28; }
+@media (prefers-reduced-motion: no-preference) {
+  /* titoli: comparsa a tendina dal basso, come il masked-text-reveal */
+  .js [data-titolo] { clip-path: inset(0 0 100% 0); transform: translateY(0.35em); transition: clip-path 0.9s var(--ease-osmo), transform 0.9s var(--ease-osmo); }
+  .js [data-titolo].is--visibile { clip-path: inset(0 0 -0.25em 0); transform: none; }
+  /* foto: tendina dall'alto con la curva PHOTO */
+  .js [data-foto] { clip-path: inset(0 0 100% 0); transition: clip-path 1.4s var(--ease-foto); }
+  .js [data-foto].is--visibile { clip-path: inset(0); }
+  /* stacking cards: la seconda scheda sale e copre la prima, che resta visibile per 18 px */
+  @media (min-width: 992px) {
+    .settori { display: block; }
+    .settori::after { content: ""; display: block; height: 28vh; }   /* tiene le schede impilate ancora un po' prima di lasciarle andare */
+    .settore { position: sticky; top: calc(var(--testata-h) + 24px); height: min(460px, calc(100svh - var(--testata-h) - 72px)); }
+    .settore + .settore { top: calc(var(--testata-h) + 24px + 18px); margin-top: 36vh; box-shadow: 0 -14px 32px -18px rgba(1, 22, 56, 0.28); }
+  }
+}
+
+/* comparsa leggera dei blocchi */
 @media (prefers-reduced-motion: no-preference) {
   .js [data-comparsa] { opacity: 0; transform: translateY(16px); transition: opacity var(--durata) var(--ease-osmo), transform var(--durata) var(--ease-osmo); }
   .js [data-comparsa].is--visibile { opacity: 1; transform: none; }
@@ -190,9 +212,11 @@ a[aria-current="page"] > .sottolineato::after { transform: scaleX(1) rotate(0.00
 
 /* ============ Mobile: scheda persona compatta (ritratto a sinistra, come nella asciutta 3) ============ */
 @media (max-width: 767px) {
-  .testata__barra { padding: 0 14px; height: 46px; }
-  .testata__barra .logo { width: 130px; }
-  .testata__menu { gap: 18px; font-size: 14px; }
+  :root { --testata-h: 76px; }
+  .testata { padding-block: 10px; }
+  .testata__barra { padding: 0 14px; height: 56px; }
+  .testata__barra .logo { width: 172px; }
+  .testata__menu { gap: 14px; font-size: 14px; }
   .persone { grid-template-columns: 1fr; gap: 36px; }
   .persona { display: grid; grid-template-columns: 112px 1fr; column-gap: 16px; row-gap: 8px; align-items: end; }
   .persona__foto { grid-row: 1 / 3; aspect-ratio: 4 / 5; margin-bottom: 0; }
