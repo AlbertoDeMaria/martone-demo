@@ -1,0 +1,280 @@
+<!doctype html>
+<html lang="it" data-palette="1">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Soci e collaboratori · Martone & Martone, studio legale a Roma</title>
+<meta name="description" content="I soci, i collaboratori e lo staff dello Studio Legale Martone & Martone: avvocati specializzati in diritto del lavoro, sindacale e della previdenza sociale a Roma.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<link rel="preload" href="fonts/AlbertSans-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="img/vetrata.webp" as="image" fetchpriority="high">
+<link rel="stylesheet" href="vendor/lenis.css">
+<link rel="stylesheet" href="css/style.css">
+<script>
+  document.documentElement.classList.add('js', 'in-cima');
+  try { const p = localStorage.getItem('m08-palette'); if (/^[123]$/.test(p)) document.documentElement.dataset.palette = p; } catch (e) {}
+</script>
+<script defer src="vendor/gsap.min.js"></script>
+<script defer src="vendor/ScrollTrigger.min.js"></script>
+<script defer src="vendor/CustomEase.min.js"></script>
+<script defer src="vendor/Observer.min.js"></script>
+<script defer src="vendor/Flip.min.js"></script>
+<script defer src="vendor/lenis.min.js"></script>
+<script defer src="js/main.js"></script>
+</head>
+<body class="pagina-soci">
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-freccia" viewBox="0 0 16 16"><path d="M3.333 8H12.667M8.667 12L12.667 8L8.667 4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-sx" viewBox="0 0 16 16"><path d="M12.667 8H3.333M7.333 12L3.333 8L7.333 4" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-ur" viewBox="0 0 16 16"><path d="M4.667 11.333L11.333 4.667M11.333 10V4.667H6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 16 16"><path d="M2.667 6H13.333M2.667 10H13.333" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-x" viewBox="0 0 16 16"><path d="M4.5 4.5L11.5 11.5M11.5 4.5L4.5 11.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-giu" viewBox="0 0 16 16"><path d="M4 6L8 10L12 6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-copia" viewBox="0 0 16 16"><path d="M3.333 10V3.333H10M6 6H12.667V12.667H6V6Z" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-spunta" viewBox="0 0 16 16"><path d="M3.333 8.333L6.333 11.333L12.667 4.667" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<a class="salta" href="#contenuto">Vai al contenuto</a>
+<button class="ferma-animazioni" type="button" data-ferma-animazioni aria-pressed="false">Ferma le animazioni</button>
+
+<!-- Solo per la demo: cambia le 3 palette del Figma dal vivo -->
+<div class="palette" role="group" aria-label="Palette dei colori (solo demo)">
+  <span class="palette__nome" aria-hidden="true">Palette</span>
+  <button type="button" data-palette-scegli="1" aria-pressed="true" aria-label="Palette 1, bianco e cobalto">1</button>
+  <button type="button" data-palette-scegli="2" aria-pressed="false" aria-label="Palette 2, polvere e navy">2</button>
+  <button type="button" data-palette-scegli="3" aria-pressed="false" aria-label="Palette 3, indaco e lavanda">3</button>
+</div>
+
+<!-- Menu sotto la pagina · fixed-underlay-navigation -->
+<div class="menu" id="menu" data-menu inert>
+  <div class="menu__barra">
+    <a class="logo menu__logo" href="./" aria-label="Martone & Martone, home"></a>
+    <button class="bottone-chiudi" type="button" data-menu-chiudi>Chiudi<span class="cerchio cerchio--40"><svg class="icona" aria-hidden="true"><use href="#i-x"></use></svg></span></button>
+  </div>
+  <div class="menu__corpo">
+    <nav class="menu__voci" aria-label="Menu principale">
+      <ul>
+        <li><a class="menu__voce" href="./"><span class="menu__num">01</span>Studio</a></li>
+        <li><a class="menu__voce" href="./#attivita"><span class="menu__num">02</span>Attività</a></li>
+        <li><a class="menu__voce" href="soci.html" aria-current="page"><span class="menu__num">03</span>Soci e collaboratori</a></li>
+        <li><a class="menu__voce" href="./#contatti"><span class="menu__num">04</span>Contatti</a></li>
+      </ul>
+    </nav>
+    <div class="menu__contatti">
+      <p class="t-etichetta menu__etichetta">Contatti</p>
+      <p class="menu__indirizzo">Lungotevere Arnaldo da Brescia 11, 00196 Roma</p>
+      <a href="tel:+39066861671">+39 06 6861671</a>
+      <a href="mailto:info@studiolegalemartone.com">info@studiolegalemartone.com</a>
+      <ul class="menu__lingue" aria-label="Lingua">
+        <li><a class="pillola-lingua is--attiva" href="soci.html" aria-current="true" lang="it">IT</a></li>
+        <li><a class="pillola-lingua" href="#" lang="en">EN</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Testata · scroll-driven-header-styling: vetro scuro sulla fascia, pillola chiara dopo -->
+<header class="testata" data-testata>
+  <a class="logo testata__logo" href="./" aria-label="Martone & Martone, home"></a>
+  <div class="testata__destra">
+    <a class="testata__lingua" href="#" aria-label="Lingua: italiano. Passa all’inglese">IT · EN</a>
+    <button class="bottone-menu" type="button" data-menu-apri aria-expanded="false" aria-controls="menu">Menu<span class="cerchio cerchio--36"><svg class="icona" aria-hidden="true"><use href="#i-menu"></use></svg></span></button>
+    <a class="bottone bottone--48 bottone--accento testata__contatti" href="./#contatti">Contatti<svg class="icona" aria-hidden="true"><use href="#i-ur"></use></svg></a>
+  </div>
+</header>
+<button class="menu-bordo" type="button" data-menu-chiudi tabindex="-1" aria-hidden="true"></button>
+
+<div class="pagina" data-pagina>
+<main id="contenuto">
+
+  <!-- Hero soci: fascia panoramica (global-parallax-setup) -->
+  <section class="hero hero--soci" id="studio" aria-labelledby="hero-titolo">
+    <div class="fascia hero__fascia" data-parallax="trigger" data-fascia>
+      <img class="foto fascia__foto" data-parallax="target" src="img/vetrata.webp" alt="Persone davanti a una vetrata affacciata sulla città" width="2000" height="1250" fetchpriority="high">
+      <span class="hero__velo" aria-hidden="true"></span>
+    </div>
+    <div class="hero__testo">
+      <h1 class="t-h1 hero__titolo" id="hero-titolo">Soci e collaboratori</h1>
+      <div class="hero__destra">
+        <p class="t-grande">Un team di professionisti altamente specializzato al servizio delle imprese.</p>
+        <nav class="filtri" aria-label="Vai al gruppo">
+          <a class="filtro is--attivo" href="#soci" aria-current="true">Tutti · 10</a>
+          <a class="filtro" href="#soci">Soci · 3</a>
+          <a class="filtro" href="#team">Collaboratori · 5</a>
+          <a class="filtro" href="#team">Staff · 2</a>
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  <!-- I soci · centered-looping-slider -->
+  <section class="soci" id="soci" aria-labelledby="soci-titolo">
+    <div class="testa wrap-x soci__testa">
+      <div class="testa__col">
+        <p class="pillola pillola--etichetta solo-desktop">I soci</p>
+        <h2 class="t-h2" id="soci-titolo">I soci dello Studio</h2>
+      </div>
+      <div class="slider__comandi">
+        <p class="slider__conta solo-desktop" aria-hidden="true"><span data-slider-num>02</span> / 03</p>
+        <button class="cerchio cerchio--56 slider__freccia" type="button" data-slider-prev aria-label="Socio precedente" aria-controls="soci-palco"><svg class="icona icona--20" aria-hidden="true"><use href="#i-sx"></use></svg></button>
+        <button class="cerchio cerchio--56 cerchio--scuro slider__freccia" type="button" data-slider-next aria-label="Socio successivo" aria-controls="soci-palco"><svg class="icona icona--20" aria-hidden="true"><use href="#i-freccia"></use></svg></button>
+      </div>
+    </div>
+
+    <div class="slider" data-slider aria-roledescription="carosello" aria-label="I soci dello Studio">
+      <p class="sr-only" aria-live="polite" data-slider-stato></p>
+      <div class="slider__palco" id="soci-palco" data-slider-palco>
+        <article class="socio" data-socio data-pos="sx" aria-hidden="true" aria-roledescription="scheda" aria-label="Socio 1 di 3">
+          <img class="foto socio__foto" src="img/u2.webp" alt="Ritratto dell’Avv. Antonio Martone" width="900" height="1125" loading="lazy">
+          <p class="socio__etichetta" aria-hidden="true">Avv. Antonio Martone</p>
+          <div class="socio__profilo">
+            <div class="socio__testi">
+              <p class="pillola pillola--etichetta pillola--30">Socio · 01 / 03</p>
+              <h3 class="t-h2 socio__nome">Avv. Antonio Martone</h3>
+              <p class="t-grande socio__ruolo">Avvocato cassazionista, già magistrato e componente del CSM</p>
+              <p class="t-testo socio__bio">Biografia in arrivo dallo Studio (segnaposto): formazione, incarichi, docenze e pubblicazioni.</p>
+              <ul class="socio__pillole"><li class="pillola pillola--chiara">Avvocato cassazionista</li><li class="pillola pillola--chiara">Già magistrato</li><li class="pillola pillola--chiara">Già componente del CSM</li></ul>
+            </div>
+            <div class="socio__bottoni">
+              <a class="bottone bottone--52 bottone--scuro" href="mailto:info@studiolegalemartone.com">Scrivi una email<span class="cerchio cerchio--40 cerchio--fondo"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+              <a class="bottone bottone--52 bottone--linea solo-desktop" href="#">Curriculum<svg class="icona" aria-hidden="true"><use href="#i-giu"></use></svg></a>
+            </div>
+          </div>
+        </article>
+        <article class="socio" data-socio data-pos="centro" aria-hidden="false" aria-roledescription="scheda" aria-label="Socio 2 di 3">
+          <img class="foto socio__foto" src="img/u3.webp" alt="Ritratto del Prof. Avv. Michel Martone" width="900" height="1125" loading="lazy">
+          <p class="socio__etichetta" aria-hidden="true">Prof. Avv. Michel Martone</p>
+          <div class="socio__profilo">
+            <div class="socio__testi">
+              <p class="pillola pillola--etichetta pillola--30">Socio · 02 / 03</p>
+              <h3 class="t-h2 socio__nome">Prof. Avv. Michel Martone</h3>
+              <p class="t-grande socio__ruolo">Professore ordinario, Sapienza Università di Roma, già Vice Ministro del Lavoro</p>
+              <p class="t-testo socio__bio">Professore ordinario di diritto del lavoro e relazioni industriali presso la Facoltà di Economia della Sapienza Università di Roma. Come Vice Ministro del Lavoro e delle Politiche Sociali del Governo Monti ha collaborato alla riforma del mercato del lavoro, degli ammortizzatori sociali e delle pensioni.</p>
+              <ul class="socio__pillole"><li class="pillola pillola--chiara">Relazioni industriali</li><li class="pillola pillola--chiara">Riforme del lavoro e delle pensioni</li><li class="pillola pillola--chiara">Sapienza Università di Roma</li></ul>
+            </div>
+            <div class="socio__bottoni">
+              <a class="bottone bottone--52 bottone--scuro" href="mailto:info@studiolegalemartone.com">Scrivi una email<span class="cerchio cerchio--40 cerchio--fondo"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+              <a class="bottone bottone--52 bottone--linea solo-desktop" href="#">Curriculum<svg class="icona" aria-hidden="true"><use href="#i-giu"></use></svg></a>
+            </div>
+          </div>
+        </article>
+        <article class="socio" data-socio data-pos="dx" aria-hidden="true" aria-roledescription="scheda" aria-label="Socio 3 di 3">
+          <img class="foto socio__foto" src="img/u1.webp" alt="Ritratto dell’Avv. Thomas Martone" width="900" height="1125" loading="lazy">
+          <p class="socio__etichetta" aria-hidden="true">Avv. Thomas Martone</p>
+          <div class="socio__profilo">
+            <div class="socio__testi">
+              <p class="pillola pillola--etichetta pillola--30">Socio · 03 / 03</p>
+              <h3 class="t-h2 socio__nome">Avv. Thomas Martone</h3>
+              <p class="t-grande socio__ruolo">Socio fondatore e Managing Partner</p>
+              <p class="t-testo socio__bio">Avvocato dal 2005, è socio fondatore e Managing Partner dello Studio. Esperto in diritto del lavoro e delle relazioni industriali, assiste le imprese nell’organizzazione e gestione del personale, nei procedimenti di riorganizzazione societaria e di accesso agli ammortizzatori sociali, M&amp;A e due diligence giuslavoristiche. Ha maturato una significativa esperienza nei settori del commercio, turistico e alberghiero. Appassionato di diritto sportivo, è Procuratore Nazionale dello Sport presso il CONI.</p>
+              <ul class="socio__pillole"><li class="pillola pillola--chiara">Relazioni industriali</li><li class="pillola pillola--chiara">Ammortizzatori sociali</li><li class="pillola pillola--chiara">M&amp;A e due diligence</li><li class="pillola pillola--chiara">Diritto sportivo</li></ul>
+            </div>
+            <div class="socio__bottoni">
+              <a class="bottone bottone--52 bottone--scuro" href="mailto:info@studiolegalemartone.com">Scrivi una email<span class="cerchio cerchio--40 cerchio--fondo"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+              <a class="bottone bottone--52 bottone--linea solo-desktop" href="#">Curriculum<svg class="icona" aria-hidden="true"><use href="#i-giu"></use></svg></a>
+            </div>
+          </div>
+        </article>
+      </div>
+      <div class="slider__punti" role="group" aria-label="Scegli il socio">
+        <button class="punto" type="button" data-slider-punto aria-current="false" aria-label="Avv. Antonio Martone"></button>
+        <button class="punto" type="button" data-slider-punto aria-current="true" aria-label="Prof. Avv. Michel Martone"></button>
+        <button class="punto" type="button" data-slider-punto aria-current="false" aria-label="Avv. Thomas Martone"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Collaboratori e staff: elenco -->
+  <section class="team" id="team" aria-labelledby="team-titolo">
+    <div class="team__pannello">
+      <div class="team__testa">
+        <div class="testa__col">
+          <p class="pillola pillola--etichetta">Collaboratori e staff</p>
+          <h2 class="t-h2" id="team-titolo">Il team dello Studio</h2>
+        </div>
+        <p class="team__conta solo-desktop" aria-hidden="true">04 — 10</p>
+      </div>
+      <div class="team__intestazione solo-desktop" aria-hidden="true"><span>Nome</span><span>Ruolo</span><span>Profilo</span></div>
+      <ul class="persone">
+        <li><button class="persona" type="button" data-profilo data-nome="Avv. Gianluca Lucchetti" data-ruolo="Avvocato" data-gruppo="Collaboratori" data-foto="img/u4.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/u4.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Avv. Gianluca Lucchetti</span><span class="persona__ruolo">Avvocato</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Avvocato</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Avv. Silvia Fratini" data-ruolo="Avvocato" data-gruppo="Collaboratori" data-foto="img/d1.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/d1.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Avv. Silvia Fratini</span><span class="persona__ruolo">Avvocato</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Avvocato</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Avv. Arturo Serra" data-ruolo="Avvocato" data-gruppo="Collaboratori" data-foto="img/u5.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/u5.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Avv. Arturo Serra</span><span class="persona__ruolo">Avvocato</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Avvocato</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Avv. Alessandro Pio Rotondi" data-ruolo="Avvocato" data-gruppo="Collaboratori" data-foto="img/u6.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/u6.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Avv. Alessandro Pio Rotondi</span><span class="persona__ruolo">Avvocato</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Avvocato</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Avv. Flavia Moccia" data-ruolo="Avvocato" data-gruppo="Collaboratori" data-foto="img/d2.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/d2.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Avv. Flavia Moccia</span><span class="persona__ruolo">Avvocato</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Avvocato</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Dott.ssa Cinzia Giannetti" data-ruolo="Ruolo da confermare (segnaposto)" data-gruppo="Staff" data-foto="img/d3.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/d3.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Dott.ssa Cinzia Giannetti</span><span class="persona__ruolo">Ruolo da confermare (segnaposto)</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Ruolo da confermare (segnaposto)</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+        <li><button class="persona" type="button" data-profilo data-nome="Sig.ra Cristina Chierchini" data-ruolo="Ruolo da confermare (segnaposto)" data-gruppo="Staff" data-foto="img/d4.webp"><span class="persona__chi"><img class="foto persona__foto" src="img/d4.webp" alt="" width="900" height="1125" loading="lazy"><span class="persona__testi"><span class="persona__nome">Sig.ra Cristina Chierchini</span><span class="persona__ruolo">Ruolo da confermare (segnaposto)</span></span></span><span class="persona__ruolo persona__ruolo--colonna" aria-hidden="true">Ruolo da confermare (segnaposto)</span><span class="cerchio cerchio--48 persona__cerchio" aria-hidden="true"><svg class="icona icona--18"><use href="#i-freccia"></use></svg></span></button></li>
+      </ul>
+      <div class="lavora">
+        <div class="lavora__testi">
+          <h3 class="t-h4">Lavora con noi</h3>
+          <p class="t-piccolo lavora__testo"><span class="solo-desktop">Candidature spontanee: inviate il curriculum allo Studio. Testo da confermare (segnaposto).</span><span class="solo-mobile">Candidature spontanee (testo segnaposto)</span></p>
+        </div>
+        <a class="bottone bottone--52 bottone--accento lavora__bottone" href="mailto:info@studiolegalemartone.com"><span class="lavora__scrivici">Scrivici</span><span class="cerchio cerchio--40 cerchio--scuro"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- Profilo del team: <dialog> nativo -->
+<dialog class="profilo" data-modal data-lenis-prevent aria-labelledby="profilo-nome">
+  <div class="profilo__scheda">
+    <img class="foto profilo__foto" data-profilo-foto src="img/u4.webp" alt="" width="900" height="1125">
+    <div class="profilo__testi">
+      <div class="profilo__riga">
+        <p class="pillola pillola--etichetta pillola--30" data-profilo-gruppo>Collaboratori</p>
+        <button class="cerchio cerchio--44 cerchio--fondo" type="button" data-modal-chiudi aria-label="Chiudi il profilo"><svg class="icona" aria-hidden="true"><use href="#i-x"></use></svg></button>
+      </div>
+      <h2 class="t-h3" id="profilo-nome" data-profilo-nome>Avv. Gianluca Lucchetti</h2>
+      <p class="t-grande" data-profilo-ruolo>Avvocato</p>
+      <p class="t-testo profilo__bio">Biografia in arrivo dallo Studio (segnaposto): formazione, aree di pratica e incarichi.</p>
+      <a class="bottone bottone--52 bottone--scuro" href="mailto:info@studiolegalemartone.com">Scrivi una email<span class="cerchio cerchio--40 cerchio--fondo"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+    </div>
+  </div>
+</dialog>
+
+<!-- 07 · Footer -->
+<footer class="footer">
+  <div class="footer__card">
+    <div class="footer__alto">
+      <div class="footer__marca">
+        <a class="logo footer__logo" href="./" aria-label="Martone & Martone, home"></a>
+        <p class="t-grande footer__claim">Sulla frontiera del diritto del lavoro.</p>
+      </div>
+      <a class="bottone bottone--56 bottone--accento footer__cta" href="./#contatti">Scrivete allo Studio<span class="cerchio cerchio--44 cerchio--scuro"><svg class="icona" aria-hidden="true"><use href="#i-freccia"></use></svg></span></a>
+    </div>
+    <div class="footer__colonne">
+      <nav class="footer__col footer__col--pagine" aria-label="Pagine">
+        <p class="t-etichetta footer__etichetta">Pagine</p>
+        <a href="./">Studio</a>
+        <a href="./#attivita">Attività</a>
+        <a href="soci.html">Soci e collaboratori</a>
+        <a href="./#contatti">Contatti</a>
+      </nav>
+      <div class="footer__col footer__col--contatti">
+        <p class="t-etichetta footer__etichetta">Contatti</p>
+        <p>Lungotevere Arnaldo da Brescia 11<span class="solo-mobile">, 00196 Roma</span></p>
+        <p class="solo-desktop">00196 Roma</p>
+        <a href="tel:+39066861671">+39 06 6861671</a>
+        <a href="mailto:info@studiolegalemartone.com">info@studiolegalemartone.com</a>
+      </div>
+      <div class="footer__col footer__col--social">
+        <p class="t-etichetta footer__etichetta">Social</p>
+        <a href="https://www.linkedin.com/" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="solo-mobile" href="#" lang="en">IT · EN</a>
+      </div>
+      <div class="footer__col footer__col--lingua solo-desktop">
+        <p class="t-etichetta footer__etichetta">Lingua</p>
+        <p>Italiano · <a href="#" lang="en">English</a></p>
+      </div>
+    </div>
+    <div class="footer__fondo">
+      <p>© 2026 Martone &amp; Martone · P.IVA 10317951001 · PEC da comunicare</p>
+      <p><a href="#">Privacy policy</a> · <a href="#">Cookie policy</a> · <a href="#">Note legali</a></p>
+    </div>
+  </div>
+</footer>
+</div>
+</body>
+</html>
