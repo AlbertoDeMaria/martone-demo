@@ -13,8 +13,8 @@
 <script>document.documentElement.classList.add('js')</script>
 <script defer src="vendor/lenis.min.js"></script>
 <script defer src="js/main.js"></script>
-<link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-m.avif" media="(max-width: 767px)" fetchpriority="high">
-<link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-1024.avif 1024w, img/hero-1600.avif 1587w" imagesizes="100vw" media="(min-width: 768px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-m-390.avif 390w, img/hero-m-510.avif 510w" imagesizes="100vw" media="(max-width: 767px)" fetchpriority="high">
+<link rel="preload" as="image" type="image/avif" imagesrcset="img/hero-1024.avif 1024w, img/hero-1440.avif 1440w, img/hero-1904.avif 1904w" imagesizes="max(100vw, 160vh)" media="(min-width: 768px)" fetchpriority="high">
 </head>
 <body>
 <svg class="sprite" aria-hidden="true">
@@ -32,12 +32,12 @@
     <div class="hero__media">
       <!-- NASA Earth Observatory, «Black Marble · Africa, Europe, and the Middle East» (Suomi NPP, 2012), pubblico dominio -->
       <picture>
-        <source media="(max-width: 767px)" type="image/avif" srcset="img/hero-m.avif">
-        <source media="(max-width: 767px)" type="image/webp" srcset="img/hero-m.webp">
-        <source media="(max-width: 767px)" srcset="img/hero-m.jpg">
-        <source type="image/avif" srcset="img/hero-1024.avif 1024w, img/hero-1600.avif 1587w" sizes="100vw">
-        <source type="image/webp" srcset="img/hero-1024.webp 1024w, img/hero-1600.webp 1587w" sizes="100vw">
-        <img src="img/hero-1600.jpg" srcset="img/hero-1024.jpg 1024w, img/hero-1600.jpg 1587w" sizes="100vw" alt="L’Italia e l’Europa di notte viste dallo spazio, con le luci delle città" width="1587" height="993" fetchpriority="high">
+        <source media="(max-width: 767px)" type="image/avif" srcset="img/hero-m-390.avif 390w, img/hero-m-510.avif 510w" sizes="100vw">
+        <source media="(max-width: 767px)" type="image/webp" srcset="img/hero-m-390.webp 390w, img/hero-m-510.webp 510w" sizes="100vw">
+        <source media="(max-width: 767px)" srcset="img/hero-m-390.jpg 390w, img/hero-m-510.jpg 510w" sizes="100vw">
+        <source type="image/avif" srcset="img/hero-1024.avif 1024w, img/hero-1440.avif 1440w, img/hero-1904.avif 1904w" sizes="max(100vw, 160vh)">
+        <source type="image/webp" srcset="img/hero-1024.webp 1024w, img/hero-1440.webp 1440w, img/hero-1904.webp 1904w" sizes="max(100vw, 160vh)">
+        <img src="img/hero-1440.jpg" srcset="img/hero-1024.jpg 1024w, img/hero-1440.jpg 1440w, img/hero-1904.jpg 1904w" sizes="max(100vw, 160vh)" alt="L’Italia e l’Europa di notte viste dallo spazio, con le luci delle città" width="1904" height="1191" fetchpriority="high">
       </picture>
     </div>
     <header class="header">
