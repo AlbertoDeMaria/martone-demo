@@ -1,8 +1,8 @@
 // Martone & Martone · «asciutta 2»: la Osmo 2 snellita (3 nov 2026, dopo la call)
-// Restano tre blocchi di osmo.supply: menu a tutto schermo, zoom della foto, scroll morbido (licenza Osmo: non ridistribuire).
+// Restano due blocchi di osmo.supply: menu a tutto schermo e scroll morbido (licenza Osmo: non ridistribuire).
+// 4 nov: niente più foto della Cassazione in testa, il logo grande sta al centro (A) o su una fascia navy (B).
 
 const riduci = window.matchMedia('(prefers-reduced-motion: reduce)');
-const desktop = window.matchMedia('(min-width: 992px)');
 const conGsap = typeof window.gsap !== 'undefined';
 const html = document.documentElement;
 const durata = (nome) => parseFloat(getComputedStyle(html).getPropertyValue(nome));
@@ -21,7 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('a[href="#"]').forEach((a) => a.addEventListener('click', (e) => e.preventDefault()));
   initLenis();
   initMenu();
-  initZoom();
   initLogo();
   if (conGsap && document.fonts) document.fonts.ready.then(() => ScrollTrigger.refresh());
 });
@@ -108,51 +107,6 @@ function initMenu() {
   });
 }
 
-/* ---------- image-to-background-zoom (dalla 01, semplificato) ---------- */
-// La foto parte incassata (larga quanto il contenuto, alta 460 o 260 px) e scorrendo si apre
-// fino a fare da sfondo al titolo del testo; poi compaiono il velo e il titolo. Con «riduci movimento» restano due blocchi fermi.
-function initZoom() {
-  const root = document.querySelector('[data-bg-zoom]');
-  if (!root || !conGsap) return;
-  const foto = root.querySelector('[data-bg-zoom-foto]');
-  const img = foto.querySelector('img');
-  const velo = root.querySelector('[data-bg-zoom-velo]');
-  const testo = root.querySelector('[data-bg-zoom-testo]');
-  let tl = null;
-  const costruisci = () => {
-    tl?.scrollTrigger?.kill();
-    tl?.kill();
-    tl = null;
-    gsap.set([foto, img, velo, testo], { clearProps: 'all' });
-    html.classList.toggle('zoom-attivo', moto.ok());
-    if (!moto.ok()) { ScrollTrigger.refresh(); return; }
-    const lato = getComputedStyle(root).getPropertyValue('--incasso').trim();
-    const alta = desktop.matches ? 460 : 260;
-    tl = gsap.timeline({
-      defaults: { ease: 'none' },
-      // parte quando la foto arriva sotto la testata fissa: al caricamento è sempre incassata
-      scrollTrigger: { trigger: root, start: () => `top ${document.querySelector('[data-testata]').offsetHeight}px`, end: 'bottom bottom', scrub: true, invalidateOnRefresh: true },
-    })
-      .fromTo(foto, { clipPath: `inset(0px ${lato} calc(100% - ${alta}px) ${lato} round 10px)` }, { clipPath: 'inset(0px 0px 0% 0px round 0px)', duration: 0.5 }, 0)
-      // all'inizio la finestra incassata mostra la facciata (come nel Figma), non il cielo: la foto sale e torna giù mentre si apre
-      .fromTo(img, { yPercent: -37 }, { yPercent: 0, duration: 0.5 }, 0)
-      .fromTo(velo, { opacity: 0 }, { opacity: 1, duration: 0.2 }, 0.38)
-      .fromTo(testo, { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.22 }, 0.48)
-      .to({}, { duration: 0.3 });
-    ScrollTrigger.refresh();
-  };
-  costruisci();
-  moto.ascolta.push(costruisci);
-  let larghezza = innerWidth;
-  let t;
-  addEventListener('resize', () => {
-    if (innerWidth === larghezza) return;
-    larghezza = innerWidth;
-    clearTimeout(t);
-    t = setTimeout(costruisci, 150);
-  });
-}
-
 /* ---------- logo in evidenza: nella home il logo della testata parte grande e si rimpicciolisce scorrendo ---------- */
 // All'inizio il logo (fisso nella testata) è spostato e ingrandito sul segnaposto della vetrina; scorrendo torna alla sua
 // misura (280 px) mentre il segnaposto sale con la pagina, poi resta fermo. Con «riduci movimento» resta sempre nella testata.
@@ -160,6 +114,14 @@ function initLogo() {
   const segnaposto = document.querySelector('[data-logo-grande] .logo');
   const logo = document.querySelector('.testata__logo');
   if (!segnaposto || !logo || !conGsap) return;
+  // B: bianco finché il centro del logo sta sulla fascia navy, navy da quando entra nella testata chiara
+  const fascia = segnaposto.closest('.vetrina--fascia');
+  const testata = document.querySelector('[data-testata]');
+  const colore = () => {
+    if (!fascia) return;
+    const r = logo.getBoundingClientRect();
+    html.classList.toggle('logo-su-fascia', r.top + r.height / 2 > testata.offsetHeight);
+  };
   let tween = null;
   const misura = () => {
     const a = logo.getBoundingClientRect();
@@ -172,13 +134,15 @@ function initLogo() {
     tween = null;
     gsap.set(logo, { clearProps: 'transform' });
     html.classList.toggle('logo-scala', moto.ok());
+    html.classList.remove('logo-su-fascia');
     if (!moto.ok()) { ScrollTrigger.refresh(); return; }
     let m = misura();
     tween = gsap.fromTo(logo, { x: () => m.x, y: () => m.y, scale: () => m.k }, {
       x: 0, y: 0, scale: 1, ease: 'none',
-      scrollTrigger: { start: 0, end: () => m.y, scrub: true, invalidateOnRefresh: true, onRefreshInit: () => { gsap.set(logo, { clearProps: 'transform' }); m = misura(); } },
+      scrollTrigger: { start: 0, end: () => m.y, scrub: true, invalidateOnRefresh: true, onRefreshInit: () => { gsap.set(logo, { clearProps: 'transform' }); m = misura(); }, onUpdate: colore, onRefresh: colore },
     });
     ScrollTrigger.refresh();
+    colore();
   };
   costruisci();
   moto.ascolta.push(costruisci);
