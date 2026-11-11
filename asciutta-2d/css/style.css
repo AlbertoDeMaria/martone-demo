@@ -1,6 +1,7 @@
 /* Martone & Martone · «asciutta 2»: la Osmo 2 snellita dopo la call del 3 nov 2026 (due pagine, solo i contenuti dello Studio)
    4 nov: senza la foto della Cassazione, al suo posto il logo (A al centro, B su una fascia navy).
    10 nov: C e D, apertura a tutto schermo col logo protagonista (sezione in fondo).
+   11 nov (modifiche di Mattia sulla D): testi giustificati, via indirizzo e telefono dall'apertura, foto del palazzo dello Studio.
    Restano: menu a tutto schermo e logo in evidenza. Blocchi osmo.supply adattati (non ridistribuire). */
 
 @font-face { font-family: "Geist"; src: url("../fonts/Geist-Regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
@@ -185,12 +186,16 @@ html.menu-aperto .testata__logo { transform: none !important; }
 
 /* ============ Testo del docx ============ */
 .testo { display: flex; flex-direction: column; gap: var(--s-48); padding-block: var(--pad-sezione); }
-.testo__primo { max-width: 960px; font-size: var(--fs-grande); line-height: var(--lh-grande); letter-spacing: var(--ls-grande); }
+.testo__primo { align-self: center; max-width: 960px; font-size: var(--fs-grande); line-height: var(--lh-grande); letter-spacing: var(--ls-grande); }
 .testo__blocchi { display: grid; gap: var(--s-40); padding-top: var(--s-48); border-top: 1px solid var(--linea); }
 .testo__blocco { display: flex; flex-direction: column; gap: var(--s-16); }
 .testo__blocco p { color: var(--testo-2); }
+/* 11 nov: i testi sono giustificati, con la sillabazione italiana (lang="it") per non lasciare buchi */
+.testo__primo, .testo__blocco p, .persona__descr { text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
 @media (min-width: 992px) { .testo__blocchi { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-64); } .testo__blocco p { font-size: var(--fs-lead); line-height: var(--lh-lead); } }
 @media (max-width: 991px) { .testo__primo { font-size: 20px; line-height: 30px; letter-spacing: -0.3px; } }
+/* sotto i 360 px le righe sono troppo corte per giustificare senza buchi: il testo grande scende a 18 px, le descrizioni accanto al ritratto restano a sinistra */
+@media (max-width: 359px) { .testo__primo { font-size: 18px; line-height: 28px; } .persona__descr { text-align: left; } }
 
 /* ============ Chi siamo ============ */
 .intro { padding-top: var(--s-56); padding-bottom: var(--s-48); text-align: center; }
@@ -278,14 +283,8 @@ html:not(.logo-scala):not(.menu-aperto).su-apertura .testata__logo { visibility:
 .apertura__filo--giu { left: var(--cx); bottom: 0; width: 1px; height: calc(50% - var(--w) * 0.02506 - var(--g-v)); }
 .apertura__filo--sx { top: 50%; left: 0; height: 1px; width: calc(50% - var(--w) * 0.494479 - var(--g-h)); }
 .apertura__filo--dx { top: 50%; right: 0; height: 1px; width: calc(50% - var(--w) * 0.494329 - var(--g-h)); }
-.apertura__dati { position: absolute; left: var(--gutter); right: var(--gutter); bottom: clamp(32px, 26.057px + 1.5238vw, 48px); display: flex; justify-content: space-between; align-items: flex-end; gap: var(--s-16); font-size: var(--fs-piccolo); line-height: 20px; color: var(--testo-inverso-2); }
-.apertura__dati a { transition: color var(--dur-colore); }
-@media (hover: hover) { .apertura__dati a:hover { color: var(--testo-inverso); } }
-@media (max-width: 991px) { .apertura__virgola { display: none; } .apertura__a-capo { display: block; } }
-@media (min-width: 992px) { .apertura__dati { font-size: var(--fs-bottone); } }
-.apertura__dati a { white-space: nowrap; }
-/* sotto i 360 px il logo occupa quasi tutta la larghezza: niente fili orizzontali, indirizzo e telefono uno sotto l'altro */
-@media (max-width: 359px) { .apertura__filo--sx, .apertura__filo--dx { display: none; } .apertura__dati { flex-direction: column; align-items: flex-start; gap: var(--s-4); } }
+/* sotto i 360 px il logo occupa quasi tutta la larghezza: niente fili orizzontali */
+@media (max-width: 359px) { .apertura__filo--sx, .apertura__filo--dx { display: none; } }
 
 /* il titolo apre il blocco dopo l'apertura, centrato; in D il filo verticale scende fino al titolo */
 .testo__titolo { align-self: center; max-width: 852px; margin-bottom: clamp(0px, -11.886px + 3.0476vw, 32px); text-align: center; }
