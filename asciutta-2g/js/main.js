@@ -90,7 +90,12 @@ function initMenu() {
   const testata = toggle.closest('[data-testata]');
   const aperto = () => menu.getAttribute('data-navigation-status') === 'active';
   const resto = [...document.body.children].filter((el) => el !== menu && el !== testata && !['SCRIPT'].includes(el.tagName) && !el.matches('svg.sprite'));
+  let viaggio;
   const imposta = (apri) => {
+    // il logo va nella testata (o torna al centro) insieme alla tendina, non di scatto
+    html.classList.add('logo-in-viaggio');
+    clearTimeout(viaggio);
+    viaggio = setTimeout(() => html.classList.remove('logo-in-viaggio'), 800);
     menu.setAttribute('data-navigation-status', apri ? 'active' : 'not-active');
     menu.inert = !apri;
     resto.forEach((el) => { el.inert = apri; });

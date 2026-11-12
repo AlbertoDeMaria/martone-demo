@@ -342,3 +342,5 @@ html.su-apertura .testata .bottone--scuro { background: var(--navy); color: var(
 /* 12 nov 16:36 (Mattia): ritratti senza l'arazzo, sfondo monocromatico. Scontornati con Vision di macOS e messi su un Pearled Ivory più scuro, in B/N */
 .persona__foto { background: #e3d9c8; }
 .persona__foto img { mix-blend-mode: normal; opacity: 1; }
+/* 12 nov (Alberto): aprendo il menu in cima alla pagina il logo scattava nella testata; ora ci va insieme alla tendina */
+html.logo-in-viaggio .testata__logo { transition: transform var(--dur-pannello) var(--ease-tile), color var(--dur-colore); }
