@@ -324,14 +324,13 @@ html.su-apertura .testata .bottone--scuro { background: var(--navy); color: var(
 @media (min-width: 992px) and (max-width: 1199px) { .contatti__wrap { grid-template-columns: minmax(0, 300fr) minmax(0, 900fr); } }
 
 /* 12 nov 16:11, Mattia (dal professore): «logo molto più grande e testo sotto più piccolo».
-   Logo da 294-880 a 340-1280 px (a 1440 è l'89% della larghezza); sotto i 560 px i fili orizzontali resterebbero dei moncherini e si tolgono.
+   Logo da 294-880 a 300-1280 px (a 1440 è l'89% della larghezza; su telefono resta stretto quanto basta per i fili laterali, vedi sotto).
    Testo sotto il titolo da 20-32 a 18-24 px, riga più corta. */
-.apertura--segno { --logo-w: clamp(288px, 15.55px + 87.81vw, 1280px); }   /* 358 px a 390 (bordo a bordo meno il margine), 1280 a 1440 */
-@media (max-width: 559px) { .apertura__filo--sx, .apertura__filo--dx { display: none; } }
+.apertura--segno { --logo-w: clamp(270px, -64px + 93.33vw, 1280px); }   /* 12 nov 16:34 (Mattia: «da cellulare spariscono righe laterali»): 300 px a 390 così i fili laterali restano lunghi ~30 px come nella 2D; 1280 a 1440 */
 .testo__primo { max-width: 820px; font-size: clamp(18px, 15.771px + 0.5714vw, 24px); line-height: clamp(28px, 25.029px + 0.7619vw, 36px); }
 @media (max-width: 991px) { .testo__primo { font-size: 18px; line-height: 28px; letter-spacing: 0; } }
 /* il filo sotto l'apertura segue il + del logo, che sta 0,13% a sinistra del centro: col logo grande lo scarto si vede */
-.testo__filo { transform: translateX(calc(-0.00133 * min(clamp(288px, 15.55px + 87.81vw, 1280px), 100vw - 2 * var(--gutter)))); }
+.testo__filo { transform: translateX(calc(-0.00133 * min(clamp(270px, -64px + 93.33vw, 1280px), 100vw - 2 * var(--gutter)))); }
 /* niente sillabe da due lettere a capo («telecomunicazio-ni.») */
 .testo__primo, .testo__blocco p, .persona__descr { hyphenate-limit-chars: 7 3 3; -webkit-hyphenate-limit-before: 3; -webkit-hyphenate-limit-after: 3; }
 
@@ -340,3 +339,6 @@ html.su-apertura .testata .bottone--scuro { background: var(--navy); color: var(
    Testo 16:1, testo-2 6,3-6,5:1, fili 1,9-2:1 (decorativi). */
 :root { --sfondo: #f7f1e5; --superficie: #fcf9f3; --testo-inverso: #f7f1e5; --accento: #f7f1e5; --testo-2: #5c564c; --filo: #b4ada1; --linea: #dad3c6; --linea-inverso: rgb(247 241 229 / 0.16); }
 .testo__filo { background: var(--filo); }   /* stesso grigio dei fili dell'apertura, che ora stanno sullo stesso fondo */
+/* 12 nov 16:36 (Mattia): ritratti senza l'arazzo, sfondo monocromatico. Scontornati con Vision di macOS e messi su un Pearled Ivory più scuro, in B/N */
+.persona__foto { background: #e3d9c8; }
+.persona__foto img { mix-blend-mode: normal; opacity: 1; }
